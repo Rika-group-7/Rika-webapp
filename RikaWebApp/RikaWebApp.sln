@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RikaWebApp", "RikaWebApp\RikaWebApp.csproj", "{484A057F-A620-40FA-A3A6-A673F8C8232B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{484A057F-A620-40FA-A3A6-A673F8C8232B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{484A057F-A620-40FA-A3A6-A673F8C8232B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{484A057F-A620-40FA-A3A6-A673F8C8232B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{484A057F-A620-40FA-A3A6-A673F8C8232B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A1D5D3F-EAF6-4DBE-AE77-618B16B83E31}
+	EndGlobalSection
+EndGlobal
