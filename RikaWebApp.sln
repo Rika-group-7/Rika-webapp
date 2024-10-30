@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RikaWebApp", "RikaWebApp\RikaWebApp.csproj", "{484A057F-A620-40FA-A3A6-A673F8C8232B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RikaWebApp", "RikaWebApp\RikaWebApp.csproj", "{484A057F-A620-40FA-A3A6-A673F8C8232B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{611E39BC-EA39-41DC-8CC9-42A2E41FE3D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{484A057F-A620-40FA-A3A6-A673F8C8232B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{484A057F-A620-40FA-A3A6-A673F8C8232B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{484A057F-A620-40FA-A3A6-A673F8C8232B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{611E39BC-EA39-41DC-8CC9-42A2E41FE3D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{611E39BC-EA39-41DC-8CC9-42A2E41FE3D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{611E39BC-EA39-41DC-8CC9-42A2E41FE3D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{611E39BC-EA39-41DC-8CC9-42A2E41FE3D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
