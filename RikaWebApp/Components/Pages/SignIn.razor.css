@@ -1,0 +1,63 @@
+﻿.container .rika-logga {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container .welcome-box {
+  padding-bottom: 2rem;
+  padding-top: 5rem;
+}
+.container .welcome-box .welcome-text {
+  color: gray;
+}
+.container form .signin-form {
+  display: flex;
+  flex-direction: column;
+}
+.container form .signin-form label {
+  font-weight: bold;
+  padding-top: 1rem;
+}
+.container form .signin-form input {
+  border: none;
+  border-bottom: 1px solid gray;
+}
+.container form .signin-form .checkbox {
+  display: flex;
+  flex-direction: row;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.container form .signin-form .checkbox label {
+  padding-left: 1rem;
+  padding-top: 0;
+}
+.container form .signin-form .btn {
+  background-color: black;
+  color: white;
+  align-self: flex-start;
+  width: 300px;
+}
+.container form .signin-form .btn:hover {
+  background-color: white;
+  border: 1px solid lightgray;
+  color: black;
+}
+.container .external-signin {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+.container .external-signin .btn {
+  border: 1px solid lightgray;
+  width: 300px;
+}
+.container .external-signin .btn:hover {
+  background-color: black;
+  border: 1px solid black;
+  color: white;
+}
