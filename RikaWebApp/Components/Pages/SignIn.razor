@@ -1,4 +1,5 @@
 ﻿@page "/signin"
+@using System.ComponentModel.DataAnnotations
 
 
 <div class="container">
@@ -12,13 +13,15 @@
     </div>
     
         <EditForm FormName="signin" Model="SignInForm" class="form-box">
-            
+            <DataAnnotationsValidator></DataAnnotationsValidator>
             <div class="signin-form">
                 <label class="form-label">Email</label>
-                <input type="email" placeholder="Email" />
+                <InputText @bind-Value="SignInForm.Email" type="email" placeholder="Email" />
+                <span><ValidationMessage For="() => SignInForm.Email" class="text-danger"></ValidationMessage></span>
 
                 <label class="form-label">Password</label>
-                <input type="password" placeholder="******" />
+                <InputText @bind-Value="SignInForm.Email" type="password" placeholder="******" />
+                <span><ValidationMessage For="() => SignInForm.Email" class="text-danger" ></ValidationMessage></span>
 
                 <div class="checkbox">
                     <input type="checkbox" />
@@ -42,8 +45,12 @@
 @code {
     public class SignInModel 
     {
+        [Required]
+        [Display(Name ="Email Address", Prompt ="Enter Your Email Address")]
         public string Email { get; set; } = null!;
 
+        [Required]
+        [Display(Name = "Password", Prompt = "Enter Your Password")]
         public string Password { get; set; } = null!;
 
         public bool RememberMe { get; set; }
