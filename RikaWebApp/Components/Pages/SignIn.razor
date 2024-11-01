@@ -1,5 +1,8 @@
 ﻿@page "/signin"
 @using System.ComponentModel.DataAnnotations
+@inject HttpClient Http
+@rendermode InteractiveServer
+
 
 
 <div class="container">
@@ -11,17 +14,17 @@
         <h3 class="welcome-heading">Welcome!</h3>
         <h6 class="welcome-text">Please log in or sign up to continue</h6>
     </div>
-    
-        <EditForm FormName="signin" Model="SignInForm" class="form-box">
+
+    <EditForm FormName="signin" OnValidSubmit="SignInUserAsync" Model="@signInModel" class="form-box">
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <div class="signin-form">
                 <label class="form-label">Email</label>
-                <InputText @bind-Value="SignInForm.Email" type="email" placeholder="Email" />
-                <span><ValidationMessage For="() => SignInForm.Email" class="text-danger"></ValidationMessage></span>
+            <InputText @bind-Value="signInModel.Email" type="email" placeholder="Email" />
+            <span><ValidationMessage For="() => signInModel.Email" class="text-danger"></ValidationMessage></span>
 
                 <label class="form-label">Password</label>
-                <InputText @bind-Value="SignInForm.Email" type="password" placeholder="******" />
-                <span><ValidationMessage For="() => SignInForm.Email" class="text-danger" ></ValidationMessage></span>
+                <InputText @bind-Value="signInModel.Password" type="password" placeholder="******" />
+                <span><ValidationMessage For="() => signInModel.Password" class="text-danger" ></ValidationMessage></span>
 
                 <div class="checkbox">
                     <input type="checkbox" />
@@ -33,6 +36,15 @@
 
         </EditForm>
 
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <span class="alert alert-success">@successMessage</span>
+    }
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <span class="alert alert-danger">@errorMessage</span>
+    }
+
     <div class="external-signin">
         <h6>or</h6>
         <button class="btn">Continue With Facebook</button>
@@ -43,6 +55,30 @@
 </div>
 
 @code {
+    private SignInModel signInModel = new SignInModel();
+    private string confirmPassword = string.Empty;
+    private string successMessage;
+    private string errorMessage;
+
+    private async Task SignInUserAsync()
+    {
+
+        var response = await Http.PostAsJsonAsync("https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/Auth/signin", signInModel);
+        if (response.IsSuccessStatusCode)
+        {
+            successMessage = "200 ok";
+
+        }
+        else
+        {
+            errorMessage = "did not work";
+        }
+    }
+
+
+
+
+
     public class SignInModel 
     {
         [Required]
@@ -59,6 +95,5 @@
 
 
 
-    [SupplyParameterFromForm]
-    public SignInModel SignInForm { get; set; } = new();
+
 }
