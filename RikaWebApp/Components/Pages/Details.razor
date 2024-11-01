@@ -1,0 +1,129 @@
+﻿@page "/details"
+
+@*
+Vi kommer göra om form till EditForm när vi skapar funktionalitet för formuläret.
+*@
+
+
+    <section id="settings-page">
+        <div class="container">
+
+            <aside class="sidebar-settings">
+
+                <div>
+                    <h3>Settings</h3>
+                </div>
+                <nav class="profile-nav">
+
+                    <div class="nav-settings-cards">
+                        <a href="/" class="setting-card">
+                            <div class="icon-settings">
+                                <i class="fa-solid fa-globe"></i>
+                            </div>
+                            <p>Language</p><i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+                    </div>
+
+                    <div class="nav-settings-slider">
+                        <div class="setting-card">
+                            <div class="icon-settings">
+                                <i class="fa-regular fa-bell"></i>
+                            </div>
+                            <p>Notification</p>
+                            <label class="switch">
+                                <input type="checkbox" id="notification-toggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="nav-settings-slider">
+                        <div class="setting-card">
+                            <div class="icon-settings">
+                                <i class="fa-solid fa-moon"></i>
+                            </div>
+                            <p>Dark Mode</p>
+                            <label class="switch">
+                                <input type="checkbox" id="darkmode-toggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="nav-settings-cards">
+                        <a href="/" class="setting-card">
+                            <div class="icon-settings">
+                                <i class="fa-solid fa-question"></i>
+                            </div>
+                            <p>Help Center</p> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+
+
+
+                </nav>
+
+            </aside>
+
+
+
+            <form class="form-settings">
+                <h3>Personal Details</h3>
+                <div class="Upload-image-settings">
+                    <img src="avatar.svg" alt="" />
+                    <a class="icon">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </a>
+
+                </div>
+                <div class="form-content-settings">
+
+                    <div id="form-name" class="input-group-settings">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Ange ditt namn" required />
+                        <span class="error-message" id="error-name"></span>
+                    </div>
+
+                    <div id="form-gender" class="input-group-settings">
+                        <label for="gender">Gender</label>
+                        <div class="gender-group">
+                            <label class="gender-box"><input type="radio" name="gender" value="male" required /> Male</label>
+                            <label class="gender-box"><input type="radio" name="gender" value="female" required /> Female</label>
+                        </div>
+                        <span class="error-message" id="error-gender"></span>
+                    </div>
+
+                    <div id="form-age" class="input-group-settings">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" min="0" placeholder="Ange din ålder" required />
+                        <span class="error-message" id="error-age"></span>
+                    </div>
+
+                    <div id="form-email" class="input-group-settings">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Ange din email" required />
+                        <span class="error-message" id="error-email"></span>
+                    </div>
+
+                    <div class="form-button-profile">
+                        <button type="submit" class="form-btn"> Save Changes</button>
+                        <a class="sign-out-btn" href="/">Log Out <i class="fa-solid fa-right-from-bracket"></i></a>
+                    </div>
+
+
+
+                </div>
+            </form>
+
+
+
+        </div>
+
+    </section>
+
+
+@code {
+
+}
