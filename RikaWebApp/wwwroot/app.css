@@ -1,5 +1,9 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap");
+
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 160%;
+    font-weight: 400;
+    font-family: "Montserrat", "sans-serif";
     font-size: 16px;
 }
 
@@ -8,28 +12,251 @@ html, body {
     display: grid;
     grid-template-rows: auto 1fr auto;
 }
-
-a, .btn-link {
-    color: #006bb7;
+.search-form {
+    position: relative;
+    width: 3.75rem;
+    height: 3.75rem;
+    background-color: #E2E5F1;
+    box-sizing: border-box;
+    border-radius: 999px;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    padding: 0.75rem;
+    margin: 0 0.5rem;
+    transition: width 0.5s ease;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+.search-form ::placeholder {
+    color: black;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-.content {
-    padding-top: 1.1rem;
-}
-
-h1:focus {
+.search-form .search-input {
+    background-color: #9397AD;
+    border: none;
     outline: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    padding-left: 1rem;
+    font-size: 16px;
+    pointer-events: none;
 }
+
+.search-form .search-button {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    background-color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s;
+    cursor: pointer;
+}
+
+.search-form .search-button .search-icon, .search-form .search-button .search-close {
+    position: absolute;
+    font-size: 1.25rem;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.5s ease;
+}
+
+    .search-form .search-button .search-close {
+        opacity: 0;
+    }
+
+.active-search {
+    max-width: 100%;
+    width: 15rem;
+}
+
+.active-search .search-button {
+    left: calc(100% - 2rem);
+}
+
+.active-search .search-input {
+    pointer-events: initial;
+}
+
+.active-search .search-icon {
+    opacity: 0;
+}
+
+.active-search .search-close {
+    opacity: 1 !important;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+        background-color: #FFFFFF;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+}
+
+header .header-title img {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    header .header-title img {
+        display: flex;
+    }
+}
+
+header .header-title .menu-button {
+    background: none;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    header .header-title .menu-button {
+        display: none;
+    }
+}
+
+header .desktop-nav {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    header .desktop-nav {
+        display: block;
+    }
+
+    header .desktop-nav ul {
+        list-style: none;
+        display: flex;
+        gap: 100px;
+        line-height: 160%;
+        font-weight: 400;
+        font-family: "Montserrat", "sans-serif";
+        font-size: 22px;
+        font-weight: 600 !important;
+    }
+
+    header .desktop-nav ul li .link {
+        text-decoration: none;
+        color: #000000;
+    }
+
+    header .desktop-nav ul li .link:hover {
+        text-decoration: underline;
+    }
+}
+
+header .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+    header .header-actions .auth-links {
+        display: none;
+    }
+
+@media (min-width: 768px) {
+    header .header-actions .auth-links {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    header .header-actions .auth-links .sign-in, header .header-actions .auth-links .sign-up {
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+
+    header .header-actions .auth-links .sign-in.sign-in, header .header-actions .auth-links .sign-up.sign-in {
+        background-color: transparent;
+        color: black;
+        border: 2px solid black;
+    }
+
+    header .header-actions .auth-links .sign-in.sign-in:hover, header .header-actions .auth-links .sign-up.sign-in:hover {
+        background-color: black;
+        color: white;
+        transform: scale(1.05);
+    }
+
+    header .header-actions .auth-links .sign-in.sign-up, header .header-actions .auth-links .sign-up.sign-up {
+        background-color: black;
+        color: white;
+        border: none;
+    }
+
+    header .header-actions .auth-links .sign-in.sign-up:hover, header .header-actions .auth-links .sign-up.sign-up:hover {
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+        transform: scale(1.05);
+    }
+}
+
+header .mobile-nav {
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+}
+
+@media (min-width: 768px) {
+    header .mobile-nav {
+        display: none;
+    }
+}
+
+header .mobile-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0;
+    padding-top: 10px;
+}
+
+    header .mobile-nav ul li {
+        flex: 1;
+        text-align: center;
+    }
+
+        header .mobile-nav ul li .nav-icon {
+            text-decoration: none;
+            color: #000;
+            font-size: 17px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            header .mobile-nav ul li .nav-icon:hover {
+                text-decoration: underline;
+            }
 
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;

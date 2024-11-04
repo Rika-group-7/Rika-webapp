@@ -1,30 +1,45 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">RikaWebApp</a>
+﻿<header class="py-4">
+    <div class="header-title">
+        <img src="/Images/rikalogo.svg" alt="">
+        <button class="menu-button py-3"><i class="fa-solid fa-bars"></i></button>
     </div>
-</div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
+    <nav class="desktop-nav">
+        <ul>
+            <li><NavLink class="link" href="#">Home</NavLink></li>
+            <li><NavLink class="link" href="#">New Arrivals</NavLink></li>
+            <li><NavLink class="link" href="#">Popular</NavLink></li>
+            <li><NavLink class="link" href="#">Contact</NavLink></li>
+        </ul>
     </nav>
-</div>
+    <div class="header-actions">
+
+
+        <form class="search-form" action="">
+            <input type="search" placeholder="Search..." class="search-input">
+            <div class="search-button">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <i class="fa-solid fa-xmark search-close"></i>
+            </div>
+        </form>
+        <div class="auth-links">
+            <NavLink href="#" class="sign-in">Sign In</NavLink>
+            <NavLink href="#" class="sign-up">Sign Up</NavLink>
+        </div>
+    </div>
+    <nav class="mobile-nav py-3">
+        <ul>
+            <li><NavLink href="#" class="nav-icon"><i class="fa-solid fa-house"></i></NavLink></li>
+            <li><NavLink href="#" class="nav-icon"><i class="fa-solid fa-cart-shopping"></i></NavLink></li>
+            <li><NavLink href="#" class="nav-icon"><i class="fa-solid fa-bell"></i></NavLink></li>
+            <li><NavLink href="#" class="nav-icon"><i class="fa-solid fa-user"></i></NavLink></li>
+        </ul>
+    </nav>
+
+
+
+</header>
+
+
+
 
