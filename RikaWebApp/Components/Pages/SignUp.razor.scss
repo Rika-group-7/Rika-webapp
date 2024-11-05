@@ -1,0 +1,60 @@
+.container {
+    .rika-logga {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 2rem;
+    }
+
+    .new-account-box {
+        padding-bottom: 2rem;
+        padding-top: 5rem;
+
+        .text {
+            color: gray;
+        }
+    }
+
+    .form-box {
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                font-weight: bold;
+                padding-top: 1rem;
+            }
+
+            input {
+                border: none;
+                border-bottom: 1px solid gray;
+            }
+
+            .checkbox {
+                display: flex;
+                flex-direction: row;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+
+                label {
+                    padding-left: 1rem;
+                    padding-top: 0;
+                }
+            }
+
+            .btn {
+                background-color: black;
+                color: white;
+                align-self: flex-start;
+                width: 300px;
+
+                &:hover {
+                    background-color: white;
+                    border: 1px solid lightgray;
+                    color: black;
+                }
+            }
+        }
+    }
+}
