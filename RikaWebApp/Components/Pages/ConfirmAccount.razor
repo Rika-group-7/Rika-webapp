@@ -1,0 +1,51 @@
+﻿@page "/confirmaccount"
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager Navigation
+@inject HttpClient Http
+@rendermode InteractiveServer
+
+<div class="container">
+    <h1>Verify account</h1>
+    <h2>Enter your verification account</h2>
+
+    <EditForm FormName="verifaction-code" >
+        <InputText @bind-Value="inputModel.Code" class="input-code"></InputText>
+
+        <button class="btn">Verify account</button>
+    </EditForm>
+</div>
+
+
+@code {
+    private CodeInputModel inputModel { get; set; } = new();
+
+
+    private sealed class CodeInputModel
+    {
+        [Required]
+        public string Code { get; set; } = "";
+    }
+
+    private async Task VerifyAccount()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api-länk här", new { Code = inputModel.Code });
+
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/accountverified");
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("verification did not work");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error has occured : {ex.Message}");
+        }
+
+    }
+}

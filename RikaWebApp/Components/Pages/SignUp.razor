@@ -3,6 +3,7 @@
 @using System.Text.Json
 @inject HttpClient Http
 @rendermode InteractiveServer
+@inject NavigationManager Navigation
 
 
 <div class="container">
@@ -83,6 +84,7 @@
         if (response.IsSuccessStatusCode)
         {
             successMessage = "200 ok";
+            Navigation.NavigateTo("/confirmaccount");
 
         }
         else

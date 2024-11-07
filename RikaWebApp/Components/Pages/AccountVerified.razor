@@ -1,0 +1,18 @@
+﻿@page "/accountverified"
+@inject NavigationManager Navigation
+
+<div class="container">
+    <h1>Your account is verified!</h1>
+    <h3>Redirecting to the login page in a few seconds...</h3>
+</div>
+
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        // Wait for 5 seconds before redirecting
+        await Task.Delay(5000);
+        Navigation.NavigateTo("/signin");
+    }
+}
