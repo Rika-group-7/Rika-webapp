@@ -1,8 +1,10 @@
 ﻿@page "/details"
+@using System.ComponentModel.DataAnnotations
+@inject HttpClient Http
 
-@*
-Vi kommer göra om form till EditForm när vi skapar funktionalitet för formuläret.
-*@
+
+
+<PageTitle>Profile</PageTitle>
 
 
     <section id="settings-page">
@@ -69,7 +71,7 @@ Vi kommer göra om form till EditForm när vi skapar funktionalitet för formul�
 
 
 
-            <form class="form-settings">
+            <EditForm Model="@input" method="post"  novalidate class="form-settings">
                 <h3>Personal Details</h3>
                 <div class="Upload-image-settings">
                     <img src="avatar.svg" alt="" />
@@ -79,32 +81,34 @@ Vi kommer göra om form till EditForm när vi skapar funktionalitet för formul�
 
                 </div>
                 <div class="form-content-settings">
-
+                    <DataAnnotationsValidator/>
                     <div id="form-name" class="input-group-settings">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="Ange ditt namn" required />
-                        <span class="error-message" id="error-name"></span>
+                        <InputText @bind-Value="input.Name" id="name" name="name" placeholder="Ange ditt namn" />
+                        <ValidationMessage For="@(() => input.Name)" />
                     </div>
 
-                    <div id="form-gender" class="input-group-settings">
-                        <label for="gender">Gender</label>
-                        <div class="gender-group">
-                            <label class="gender-box"><input type="radio" name="gender" value="male" required /> Male</label>
-                            <label class="gender-box"><input type="radio" name="gender" value="female" required /> Female</label>
-                        </div>
-                        <span class="error-message" id="error-gender"></span>
+                 <div id="form-gender" class="input-group-settings">
+                    <label for="gender">Gender</label>
+                    <div class="gender-group">
+                        <InputRadioGroup @bind-Value="@input.Gender">
+                            <InputRadio class="gender-box"  Value="male" /> Male
+                            <InputRadio class="gender-box"  Value="female" /> Female
+                        </InputRadioGroup>
                     </div>
+                    <ValidationMessage For="@(() => input.Gender)" class="error-message" id="error-gender"></ValidationMessage>
+                </div> 
 
                     <div id="form-age" class="input-group-settings">
                         <label for="age">Age</label>
-                        <input type="number" id="age" name="age" min="0" placeholder="Ange din ålder" required />
-                        <span class="error-message" id="error-age"></span>
+                        <InputNumber @bind-Value="input.Age" id="age" name="age" placeholder="Ange din ålder"  />
+                        <ValidationMessage For="@(() => input.Age)"  class="error-message" id="error-age"></ValidationMessage>
                     </div>
 
                     <div id="form-email" class="input-group-settings">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Ange din email" required />
-                        <span class="error-message" id="error-email"></span>
+                        <InputText @bind-Value="input.Email" type="email" id="email" name="email" placeholder="Ange din email" required />
+                        <ValidationMessage For="@(() => input.Email)" class="error-message" id="error-email"></ValidationMessage>
                     </div>
 
                     <div class="form-button-profile">
@@ -115,7 +119,7 @@ Vi kommer göra om form till EditForm när vi skapar funktionalitet för formul�
 
 
                 </div>
-            </form>
+            </EditForm>
 
 
 
@@ -125,5 +129,78 @@ Vi kommer göra om form till EditForm när vi skapar funktionalitet för formul�
 
 
 @code {
+
+    private UserInputModel input = new UserInputModel();
+    private string errorMessage = "";
+    private bool isSaved = false;
+
+
+
+    private class UserInputModel
+    {
+        public string? Name { get; set; }
+        public string? Gender { get; set; }
+        public int? Age { get; set; }
+        public string? Email { get; set; }
+
+    }
+    private async Task HandleValidSubmit()
+    {
+        isSaved = false;
+        errorMessage = " ";
+
+        try
+        {
+            var response = await Http.PutAsJsonAsync("https://api.com/api/user", input);
+
+            if (response.IsSuccessStatusCode)
+            {
+                isSaved = true;
+            }
+            else
+            {
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                errorMessage = $"Uppdateringen misslyckades: {errorResponse}";
+            }
+        }
+        catch
+        {
+            
+        }
+    }
+
+
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     try
+    //     {
+    //         input = await Http.GetFromJsonAsync<>("https://api.com/api/user");
+
+    //     }
+    //     catch 
+    //     {
+    //         errorMessage = $"Ett Fel har inträffat när användardata hämtades";
+    //     }
+    //     skapa logik för att hämta in användardatan med api
+    // }
+
+
+    public class ChooseGender
+    {
+        public enum UserGender {male,female}
+    }
+
+    public class Male
+    {
+        public string? male { get; set; }
+    }
+    public class Female
+    {
+        public string? female { get; set; }
+    }
+    public Male? male { get; set; }   
+    public Female? female { get; set; }   
+
+
 
 }
