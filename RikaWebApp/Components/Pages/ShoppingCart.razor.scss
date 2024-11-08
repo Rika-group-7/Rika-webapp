@@ -1,0 +1,288 @@
+﻿.shoppingcart-section {
+    height: 100vh;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+
+
+    .container {
+        height: 100%;
+
+        .content {
+            padding: 10% 3%;
+            height: 100%;
+            position: relative;
+
+
+
+
+
+
+
+            .shoppingcart-navigation {
+                display: flex;
+                justify-content: space-between;
+                padding-bottom: 25px;
+
+
+                .go-back-to-page {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 50%;
+                    background-color: black;
+                    text-decoration: none;
+
+                    i {
+                        color: white;
+                        font-size: 20px;
+                    }
+                }
+
+                .shoppingcart-nav-comp {
+                    width: 30px;
+                    height: 34px;
+                    display: flex;
+                    align-items: end;
+                    position: relative;
+
+                    .shoppingcart-nav {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        background-color: white;
+
+                        i {
+                            color: black;
+                            font-size: 12px;
+                        }
+                    }
+
+                    .items-in-bag-circle {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 13px;
+                        width: 13px;
+                        border-radius: 50%;
+                        color: white;
+                        background-color: black;
+                        font-size: 7px;
+                        font-weight: bold;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                    }
+                }
+            }
+
+            .my-cart {
+
+                h3 {
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+
+                .cart-items {
+                    gap: 15px;
+                    display: grid;
+                    padding-bottom: 12rem;
+
+                    .cart-item {
+                        display: flex;
+                        border-radius: 18px;
+                        height: 100px;
+                        width: 100%;
+                        position: relative;
+                        background-color: black;
+
+
+
+
+                        .item-details {
+                            background-color: #FFFFFF;
+                            text-decoration: none;
+                            color: black;
+                            padding: 10px;
+                            display: flex; //ändra till none så ser du hur papperskorgen ser ut, uppdatera för att få fram ikonen.
+
+                            border-radius: 17px;
+                            height: 100px;
+                            width: 100%;
+
+
+                            .link-part {
+                                display: flex;
+                                text-decoration: none;
+                                color: black;
+                                background-color: #FFFFFF;
+
+
+                                .item-left-side {
+                                    margin-right: 5px;
+
+                                    img {
+                                        height: 80px;
+                                        width: 80px;
+                                        border-radius: 16px;
+                                        object-fit: cover;
+                                    }
+                                }
+
+                                .item-right-side {
+                                    .product-title {
+                                        font-size: 16px;
+                                        font-weight: 600;
+                                        margin: 5px 0 0 0;
+                                    }
+
+                                    .product-description {
+                                        font-size: 14px;
+                                        color: #666666;
+                                        margin-bottom: 12px;
+                                    }
+
+                                    .product-price {
+                                        font-size: 16px;
+                                        font-weight: 700;
+                                    }
+                                }
+                            }
+
+
+
+
+
+                            .change-quantity {
+                                display: inline-flex;
+                                position: absolute;
+                                right: 10px;
+                                bottom: 10px;
+
+
+                                .decrement-btn {
+                                    text-decoration: none;
+                                    height: 30px;
+                                    color: black;
+                                    background-color: #EEEEEE;
+                                    margin: 0;
+                                    width: 20px;
+                                    text-align: end;
+                                    border-bottom-left-radius: 50%;
+                                    border-top-left-radius: 50%;
+                                    font-weight: 400;
+                                    border: none;
+                                }
+
+                                .chosen-quantity {
+                                    height: 30px;
+                                    background-color: #EEEEEE;
+                                    margin: 0;
+                                    width: 30px;
+                                    text-align: center;
+                                    font-weight: 500;
+                                }
+
+                                .increment-btn {
+                                    text-decoration: none;
+                                    height: 30px;
+                                    background-color: #EEEEEE;
+                                    color: black;
+                                    margin: 0;
+                                    width: 20px;
+                                    text-align: start;
+                                    border-bottom-right-radius: 50%;
+                                    border-top-right-radius: 50%;
+                                    font-weight: 400;
+                                    border: none;
+                                }
+                            }
+                        }
+
+
+
+
+                        .remove-item {
+                            position: absolute;
+                            right: 12px;
+                            top: 50%;
+                            transform: translate(-50%, -50%);
+
+                            i {
+                                font-size: 18px;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+            .proceed-checkout {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: white;
+                padding-bottom: 7%;
+
+                .proceed-area {
+
+
+                    .total-price-items {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 8px;
+                        margin-top: 30px;
+
+                        .total-text {
+                            color: #888888;
+                        }
+
+                        h3-price {
+                        }
+                    }
+
+                    .button-area {
+
+                        .proceed-btn {
+                            display: flex;
+                            justify-content: space-between;
+                            padding: 12px 14px;
+                            width: 100%;
+                            background-color: black;
+                            border: none;
+                            border-radius: 16px;
+                            align-items: center;
+
+                            span {
+                                color: white;
+                                font-weight: 600;
+                                margin: 0;
+                            }
+
+                            .btn-icon {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 30px;
+                                width: 30px;
+                                border-radius: 9px;
+                                background-color: white;
+                                color: black;
+
+                                i {
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

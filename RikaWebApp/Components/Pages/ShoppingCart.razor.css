@@ -1,0 +1,215 @@
+﻿.shoppingcart-section {
+  height: 100vh;
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+}
+.shoppingcart-section .container {
+  height: 100%;
+}
+.shoppingcart-section .container .content {
+  padding: 10% 3%;
+  height: 100%;
+  position: relative;
+}
+.shoppingcart-section .container .content .shoppingcart-navigation {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 25px;
+}
+.shoppingcart-section .container .content .shoppingcart-navigation .go-back-to-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background-color: black;
+  text-decoration: none;
+}
+.shoppingcart-section .container .content .shoppingcart-navigation .go-back-to-page i {
+  color: white;
+  font-size: 20px;
+}
+.shoppingcart-section .container .content .shoppingcart-navigation .shoppingcart-nav-comp {
+  width: 30px;
+  height: 34px;
+  display: flex;
+  align-items: end;
+  position: relative;
+}
+.shoppingcart-section .container .content .shoppingcart-navigation .shoppingcart-nav-comp .shoppingcart-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+}
+.shoppingcart-section .container .content .shoppingcart-navigation .shoppingcart-nav-comp .shoppingcart-nav i {
+  color: black;
+  font-size: 12px;
+}
+.shoppingcart-section .container .content .shoppingcart-navigation .shoppingcart-nav-comp .items-in-bag-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 13px;
+  width: 13px;
+  border-radius: 50%;
+  color: white;
+  background-color: black;
+  font-size: 7px;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.shoppingcart-section .container .content .my-cart h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+.shoppingcart-section .container .content .my-cart .cart-items {
+  gap: 15px;
+  display: grid;
+  padding-bottom: 12rem;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item {
+  display: flex;
+  border-radius: 18px;
+  height: 100px;
+  width: 100%;
+  position: relative;
+  background-color: black;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details {
+  background-color: #FFFFFF;
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  display: flex;
+  border-radius: 17px;
+  height: 100px;
+  width: 100%;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .link-part {
+  display: flex;
+  text-decoration: none;
+  color: black;
+  background-color: #FFFFFF;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .link-part .item-left-side {
+  margin-right: 5px;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .link-part .item-left-side img {
+  height: 80px;
+  width: 80px;
+  border-radius: 16px;
+  object-fit: cover;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .link-part .item-right-side .product-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 5px 0 0 0;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .link-part .item-right-side .product-description {
+  font-size: 14px;
+  color: #666666;
+  margin-bottom: 12px;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .link-part .item-right-side .product-price {
+  font-size: 16px;
+  font-weight: 700;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .change-quantity {
+  display: inline-flex;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .change-quantity .decrement-btn {
+  text-decoration: none;
+  height: 30px;
+  color: black;
+  background-color: #EEEEEE;
+  margin: 0;
+  width: 20px;
+  text-align: end;
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
+  font-weight: 400;
+  border: none;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .change-quantity .chosen-quantity {
+  height: 30px;
+  background-color: #EEEEEE;
+  margin: 0;
+  width: 30px;
+  text-align: center;
+  font-weight: 500;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .change-quantity .increment-btn {
+  text-decoration: none;
+  height: 30px;
+  background-color: #EEEEEE;
+  color: black;
+  margin: 0;
+  width: 20px;
+  text-align: start;
+  border-bottom-right-radius: 50%;
+  border-top-right-radius: 50%;
+  font-weight: 400;
+  border: none;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .remove-item {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .remove-item i {
+  font-size: 18px;
+  color: white;
+}
+.shoppingcart-section .container .content .proceed-checkout {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  padding-bottom: 7%;
+}
+.shoppingcart-section .container .content .proceed-checkout .proceed-area .total-price-items {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  margin-top: 30px;
+}
+.shoppingcart-section .container .content .proceed-checkout .proceed-area .total-price-items .total-text {
+  color: #888888;
+}
+.shoppingcart-section .container .content .proceed-checkout .proceed-area .button-area .proceed-btn {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 14px;
+  width: 100%;
+  background-color: black;
+  border: none;
+  border-radius: 16px;
+  align-items: center;
+}
+.shoppingcart-section .container .content .proceed-checkout .proceed-area .button-area .proceed-btn span {
+  color: white;
+  font-weight: 600;
+  margin: 0;
+}
+.shoppingcart-section .container .content .proceed-checkout .proceed-area .button-area .proceed-btn .btn-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  border-radius: 9px;
+  background-color: white;
+  color: black;
+}
