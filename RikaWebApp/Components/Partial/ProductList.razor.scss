@@ -2,6 +2,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
+    background-color: grey;
 }
 
 .product-list {
@@ -12,7 +13,7 @@
 }
 
 .product-items {
-    flex: 1 1 calc(25% - 1rem); // Fyra produkter per rad
+    flex: 1 1 calc(25% - 1rem); 
     max-width: calc(25% - 1rem);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 8px;

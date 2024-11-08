@@ -3,60 +3,80 @@
 @using GraphQL
 @using RikaWebApp.Services
 @inject RikaWebApp.Services.ProductService ProductService
-@*_ProductList.razor.css*@
-
 
 
 
 <div class="container">
-    <div class="product-list row">
-        @if (Products == null || Products.Count == 0)
+    <div class="product-list">
+        @if (ErrorMessage != null)
         {
-            <p>Loading products ...</p>
+            <p class="text-danger">@ErrorMessage</p> //Felmeddelande om något går fel
+        }
+        else if (Products == null)
+        {
+            // Spinner-laddningsindikator 
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        }
+        else if (Products.Count == 0)
+        {
+            <p>No products available.</p> //Meddelande om listan är tom
         }
         else
         {
-            <ul class="list-group">
+            <div class="row">
                 @foreach (var product in Products)
                 {
-                    <li class="col-3 product-items">
-                        <img src="@product.ProductImage" alt="@product.Title" class="product-image" />
-                        <h4>Title: @product.Title</h4>
-                        <p>Product: @product.Description</p>
-                        <p>Price: @(product.Price ?? 0):C</p>
-                        <p>
-                            Categories:
-                            @if (product.Categories != null && product.Categories.Any())
-                            {
-                                @foreach (var category in product.Categories)
-                                {
-                                    <span>@category.CategoryName</span>
-                                    @if (category != product.Categories.Last())
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card product-item">
+                            <img src="@product.ProductImage" alt="@product.Title" class="card-img-top product-image" />
+                            <div class="card-body">
+                                <h5 class="card-title">@product.Title</h5>
+                                <p class="card-text">@product.Description</p>
+                                <p class="card-text">Price: @(product.Price ?? 0):Kr</p>
+                                <p class="card-text">
+                                    Categories:
+                                    @if (product.Categories != null && product.Categories.Any())
                                     {
-                                        <span>, </span>
+                                        @foreach (var category in product.Categories)
+                                        {
+                                            <span>@category.CategoryName</span>
+                                            @if (category != product.Categories.Last())
+                                            {
+                                                <span>, </span>
+                                            }
+                                        }
                                     }
-                                }
-                            }
-                            else
-                            {
-                                <span>None</span>
-                            }
-                        </p>
-                    </li>
+                                    else
+                                    {
+                                        <span>None</span>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 }
-            </ul>
+            </div>
         }
     </div>
 </div>
 
 @code {
     private List<Product>? Products;
+    private string? ErrorMessage;
 
     protected override async Task OnInitializedAsync()
     {
-        Products = await ProductService.GetProductsAsync();
-        Console.WriteLine($"Loaded {Products.Count} products"); // Log the number of products loaded
+        try
+        {
+            Products = await ProductService.GetProductsAsync();
+            Console.WriteLine($"Loaded {Products.Count} products"); // Logga antal produkter
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = "Failed to load products. Please try again later."; // Felsäkerhet
+            Console.Error.WriteLine($"Error loading products: {ex.Message}");
+        }
     }
 }
-
-
