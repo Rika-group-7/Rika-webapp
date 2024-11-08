@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "outputFile": "Components/Pages/SignIn.razor.css",
     "inputFile": "Components/Pages/SignIn.razor.scss"
@@ -6,5 +6,9 @@
   {
     "outputFile": "Components/Pages/SignUp.razor.css",
     "inputFile": "Components/Pages/SignUp.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/ConfirmAccount.razor.css",
+    "inputFile": "Components/Pages/ConfirmAccount.razor.scss"
   }
 ]

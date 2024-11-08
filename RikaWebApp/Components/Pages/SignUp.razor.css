@@ -1,11 +1,11 @@
-﻿.container .rika-logga {
+﻿.container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-content: center;
   flex-direction: column;
-  padding-top: 2rem;
 }
 .container .new-account-box {
+  text-align: center;
   padding-bottom: 2rem;
   padding-top: 5rem;
 }
@@ -15,14 +15,28 @@
 .container .form-box .signup-form {
   display: flex;
   flex-direction: column;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
 }
 .container .form-box .signup-form label {
   font-weight: bold;
   padding-top: 1rem;
 }
-.container .form-box .signup-form input {
-  border: none;
-  border-bottom: 1px solid gray;
+.container .form-box .signup-form input[type=text],
+.container .form-box .signup-form input[type=email],
+.container .form-box .signup-form input[type=password] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+.container .form-box .signup-form input[type=text]:focus,
+.container .form-box .signup-form input[type=email]:focus,
+.container .form-box .signup-form input[type=password]:focus {
+  border-color: #007bff;
+  outline: none;
 }
 .container .form-box .signup-form .checkbox {
   display: flex;
@@ -34,10 +48,26 @@
   padding-left: 1rem;
   padding-top: 0;
 }
+.container .form-box .signup-form .alert {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.container .form-box .signup-form .alert.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+.container .form-box .signup-form .alert.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
 .container .form-box .signup-form .btn {
   background-color: black;
   color: white;
-  align-self: flex-start;
+  align-self: center;
   width: 300px;
 }
 .container .form-box .signup-form .btn:hover {

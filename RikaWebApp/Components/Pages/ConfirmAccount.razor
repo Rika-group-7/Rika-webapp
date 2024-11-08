@@ -6,23 +6,31 @@
 @rendermode InteractiveServer
 
 <div class="container">
-    <h1>Verify account</h1>
-    <h2>Enter your verification code</h2>
-
-    @if (!string.IsNullOrEmpty(errorMessage))
-    {
-        <div class="alert alert-danger">@errorMessage</div>
-    }
-
-    @if (!string.IsNullOrEmpty(successMessage))
-    {
-        <div class="alert alert-success">@successMessage</div>
-    }
+    <div class="heading">
+        <h3>Verify account</h3>
+        <h6>Enter your verification code</h6>
+    </div>
+    
 
     <EditForm Model="inputModel" FormName="verification-code" OnValidSubmit="VerifyAccount">
-        <InputText @bind-Value="inputModel.Code" class="input-code" placeholder="Enter your code"></InputText>
+        <div class="form-box">
+            <div class="inside-box">
+                <InputText @bind-Value="inputModel.Code" class="input-code" placeholder="Enter your code"></InputText>
 
-        <button class="btn">Verify account</button>
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger">@errorMessage</div>
+                }
+
+                @if (!string.IsNullOrEmpty(successMessage))
+                {
+                    <div class="alert alert-success">@successMessage</div>
+                }
+
+                <button class="btn">Verify account</button>
+            </div>
+            
+        </div>
     </EditForm>
 </div>
 
@@ -97,7 +105,7 @@
             if (response.IsSuccessStatusCode)
             {
                 successMessage = "Your account has been successfully verified!";
-                Navigation.NavigateTo("/accountverified");
+                Navigation.NavigateTo("/signin");
             }
             else
             {

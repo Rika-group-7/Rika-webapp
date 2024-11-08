@@ -7,29 +7,16 @@
 
 
 <div class="container">
-    <div class="rika-logga">
-        <h1>Rika</h1>
-        <h3>Online Shopping</h3>
-    </div>
     <div class="new-account-box">
         <h3 class="signup-heading">Sign Up</h3>
         <h6 class="text">Create a new account</h6>
     </div>
 
-    @if (!string.IsNullOrEmpty(successMessage))
-    {
-        <span class="alert alert-success">@successMessage</span>
-    }
-    @if (!string.IsNullOrEmpty(errorMessage))
-    {
-        <span class="alert alert-danger">@errorMessage</span>
-    }
-
     <EditForm FormName="signup" Model="@signUpModel" OnValidSubmit="RegisterUserAsync" class="form-box">
         <DataAnnotationsValidator />
         <div class="signup-form">
             <label class="form-label">User Name</label>
-            <InputText @bind-Value="signUpModel.UserName" type="text" placeholder="User Name" />
+            <InputText @bind-Value="signUpModel.UserName" type="text" class="form-input" placeholder="User Name" />
             <span>
                 <ValidationMessage For="() => signUpModel.UserName" class="text-danger" />
             </span>
@@ -57,6 +44,15 @@
                 <label class="Terms">By creating an account you have to agree with our terms & conditions.</label>
                 <ValidationMessage For="() => signUpModel.Terms" class="text-danger" />
             </div>
+
+            @if (!string.IsNullOrEmpty(successMessage))
+            {
+                <span class="alert alert-success">@successMessage</span>
+            }
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <span class="alert alert-danger">@errorMessage</span>
+            }
 
             <button class="btn" type="submit">Sign up</button>
         </div>
@@ -96,7 +92,7 @@
         }
         else
         {
-            errorMessage = "Signup failed. Please try again.";
+            errorMessage = "Was not able to create account.";
         }
     }
 
