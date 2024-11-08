@@ -60,7 +60,7 @@
     {
         try
         {
-            var response = await Http.GetAsync($"https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/User/getbyid{userId}");
+            var response = await Http.GetAsync($"https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/User/getbyid/{userId}");
 
             if (response.IsSuccessStatusCode)
             {

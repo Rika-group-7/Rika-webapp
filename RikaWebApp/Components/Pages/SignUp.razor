@@ -80,7 +80,7 @@
             return;
         }
 
-        var response = await Http.PostAsJsonAsync("https://localhost:7243/api/Auth/signup", signUpModel);
+        var response = await Http.PostAsJsonAsync("https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/Auth/signup", signUpModel);
         if (response.IsSuccessStatusCode)
         {
             var responseData = await response.Content.ReadFromJsonAsync<RegisterResponse>();
