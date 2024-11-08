@@ -1,51 +1,128 @@
 ﻿@page "/confirmaccount"
 @using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.WebUtilities
 @inject NavigationManager Navigation
 @inject HttpClient Http
 @rendermode InteractiveServer
 
 <div class="container">
     <h1>Verify account</h1>
-    <h2>Enter your verification account</h2>
+    <h2>Enter your verification code</h2>
 
-    <EditForm FormName="verifaction-code" >
-        <InputText @bind-Value="inputModel.Code" class="input-code"></InputText>
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
+
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success">@successMessage</div>
+    }
+
+    <EditForm Model="inputModel" FormName="verification-code" OnValidSubmit="VerifyAccount">
+        <InputText @bind-Value="inputModel.Code" class="input-code" placeholder="Enter your code"></InputText>
 
         <button class="btn">Verify account</button>
     </EditForm>
 </div>
 
-
 @code {
     private CodeInputModel inputModel { get; set; } = new();
-
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
 
     private sealed class CodeInputModel
     {
         [Required]
         public string Code { get; set; } = "";
+
+        public string Email { get; set; } = ""; // Holds the email retrieved by UserId
+
+        public string UserId { get; set; } = "";  // UserId to retrieve email
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Retrieve UserId from the URL query parameter
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("userId", out var userId))
+        {
+            inputModel.UserId = userId!;
+            await FetchEmailFromUserId(userId!);
+        }
+        else
+        {
+            errorMessage = "User ID is missing from the URL.";
+        }
+    }
+
+    private async Task FetchEmailFromUserId(string userId)
+    {
+        try
+        {
+            var response = await Http.GetAsync($"https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/User/getbyid{userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var userDto = await response.Content.ReadFromJsonAsync<UserDto>();
+                inputModel.Email = userDto?.Email ?? string.Empty;
+
+                if (string.IsNullOrEmpty(inputModel.Email))
+                {
+                    errorMessage = "Failed to retrieve email for the given user ID.";
+                }
+            }
+            else
+            {
+                errorMessage = "Failed to retrieve email for the given user ID.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An error occurred while fetching email: {ex.Message}";
+        }
     }
 
     private async Task VerifyAccount()
     {
         try
         {
-            var response = await Http.PostAsJsonAsync("api-länk här", new { Code = inputModel.Code });
+            var response = await Http.PostAsJsonAsync("https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/Auth/confirm", new
+            
+            {
+                Code = inputModel.Code,
+                Email = inputModel.Email
+            });
 
             if (response.IsSuccessStatusCode)
             {
+                successMessage = "Your account has been successfully verified!";
                 Navigation.NavigateTo("/accountverified");
             }
             else
             {
                 var errorContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("verification did not work");
+                errorMessage = "Verification failed. Please check your code and try again.";
+                Console.WriteLine(errorContent);
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error has occured : {ex.Message}");
+            errorMessage = $"An error occurred during verification: {ex.Message}";
         }
+    }
 
+    public class UserDto
+    {
+        public string Id { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public bool IsAdmin { get; set; }
+        public string? ProfilePictureUrl { get; set; }
+        public string? ProfileDescription { get; set; }
+        public string? Gender { get; set; }
+        public int? Age { get; set; }
+        public string? EmailConfirmationToken { get; set; }
     }
 }

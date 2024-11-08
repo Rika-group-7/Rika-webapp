@@ -68,28 +68,35 @@
 @code {
     private SignUpModel signUpModel = new SignUpModel();
     private string confirmPassword = string.Empty;
-    private string successMessage;
-    private string errorMessage;
+    private string? successMessage;
+    private string? errorMessage;
 
     private async Task RegisterUserAsync()
     {
         if (signUpModel.Password != confirmPassword)
         {
-            errorMessage = "password incorrect";
-            successMessage = null;
+            errorMessage = "Password does not match.";
+            successMessage = null!;
             return;
         }
 
-        var response = await Http.PostAsJsonAsync("https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/Auth/signup", signUpModel);
+        var response = await Http.PostAsJsonAsync("https://localhost:7243/api/Auth/signup", signUpModel);
         if (response.IsSuccessStatusCode)
         {
-            successMessage = "200 ok";
-            Navigation.NavigateTo("/confirmaccount");
-
+            var responseData = await response.Content.ReadFromJsonAsync<RegisterResponse>();
+            if (responseData != null && !string.IsNullOrEmpty(responseData.UserId))
+            {
+                successMessage = "Registration successful. Redirecting to confirmation page...";
+                Navigation.NavigateTo($"/confirmaccount?userId={responseData.UserId}");
+            }
+            else
+            {
+                errorMessage = "Failed to retrieve User ID.";
+            }
         }
         else
         {
-            errorMessage = "did not work";
+            errorMessage = "Signup failed. Please try again.";
         }
     }
 
@@ -111,6 +118,11 @@
 
         [Required(ErrorMessage = "You must agree to the terms.")]
         public bool Terms { get; set; } 
+    }
+
+    public class RegisterResponse
+    {
+        public string UserId { get; set; } = null!;
     }
 
 }
