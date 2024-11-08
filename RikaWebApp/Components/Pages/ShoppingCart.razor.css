@@ -7,7 +7,7 @@
   height: 100%;
 }
 .shoppingcart-section .container .content {
-  padding: 10% 3%;
+  padding: 10% 0%;
   height: 100%;
   position: relative;
 }
@@ -91,6 +91,17 @@
   border-radius: 17px;
   height: 100px;
   width: 100%;
+  transition: transform 0.3s ease 2s;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details:hover {
+  transform: translateX(-50px);
+  transition: transform 0.3s ease;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details:not(:hover) {
+  transition-delay: 2s;
+}
+.shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .change-quantity:hover ~ .item-details {
+  transform: none;
 }
 .shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .link-part {
   display: flex;
