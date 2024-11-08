@@ -1,11 +1,19 @@
 using RikaWebApp.Components;
+using RikaWebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-builder.Services.AddHttpClient();
+
+// Lägg till HttpClient-konfiguration för ProductService
+builder.Services.AddHttpClient<ProductService>(client =>
+{
+    client.BaseAddress = new Uri("https://productprovider-rika.azurewebsites.net/api/");
+});
+
+builder.Services.AddScoped<ProductService>();
 
 var app = builder.Build();
 
@@ -26,3 +34,4 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+

@@ -1,25 +1,109 @@
-﻿namespace RikaWebApp.Services;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace RikaWebApp.Services;
 
 public class ProductService
 {
-    public Task<List<Product>> GetProductsAsync()
+    private readonly HttpClient _httpClient;
+
+    public ProductService(HttpClient httpClient)
     {
-        var products = new List<Product>
-        {
-            new Product { Id = 1, Title = "Nike T-shirt", Price = 100, Ingress = "This is an Ingress", ImageUrl = "/images/Nike-T-shirt.jpg", Category = "Nike Sportswear" },
-            new Product { Id = 2, Title = "AIR FORCE 1", Price = 200, Ingress = "This is an Ingress", ImageUrl = "/images/AIR-FORCE-1.jpg", Category = "Nike Sportswear"},
-            new Product { Id = 3, Title = "HANS T-shirt", Price = 999, Ingress = "This is an Ingress", ImageUrl = "/images/HANS-T-shirt.jpg", Category = "Hans Sportswear"}
-        };
-        return Task.FromResult(products);
+        _httpClient = httpClient;
     }
+
+    // Metod för att hämta produktlistan från GraphQL-API:t
+    public async Task<List<Product>> GetProductsAsync()
+    {
+        try
+        {
+            // Define the GraphQL query
+            var query = new
+            {
+                query = @"
+                query {
+                    getProducts {
+                        id
+                        title
+                        price
+                        description
+                        productImage
+                        categories {
+                            categoryName
+                        }
+                    }
+                }",
+                variables = new { }
+            };
+
+            // Send the request
+            var response = await _httpClient.PostAsJsonAsync("https://productprovider-rika.azurewebsites.net/api/graphql?code=Da4aZa9Xnh8jmwu-Srgxk8wI7NpUBsKbMxQa9hoS0kp9AzFueYwEOg%3D%3D", query);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Error: Received {response.StatusCode} from GraphQL API.");
+                return new List<Product>();
+            }
+
+            // Read the content as a string
+            var content = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"Response content: {content}"); // Log the response content
+
+            // Deserialize the response
+            var result = JsonSerializer.Deserialize<GraphQLResponse<ProductData>>(content);
+
+            if (result?.Data?.GetProducts == null)
+            {
+                Console.WriteLine("Warning: No products found in the response.");
+                return new List<Product>();
+            }
+
+            // Return the list of products
+            return result.Data.GetProducts;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching products: {ex.Message}");
+            return new List<Product>();
+        }
+    }
+}
+
+public class GraphQLResponse<T>
+{
+    [JsonPropertyName("data")]
+    public T? Data { get; set; }
+}
+
+public class ProductData
+{
+    [JsonPropertyName("getProducts")]
+    public List<Product>? GetProducts { get; set; }
 }
 
 public class Product
 {
-    public int Id { get; set; }
+    [JsonPropertyName("id")]
+    public string? Id { get; set; }
+
+    [JsonPropertyName("title")]
     public string? Title { get; set; }
-    public string? Ingress { get; set; }
-    public decimal Price { get; set; }
-    public string? ImageUrl { get; set; }
-    public string? Category { get; set; }
+
+    [JsonPropertyName("price")]
+    public decimal? Price { get; set; }
+
+    [JsonPropertyName("description")]
+    public string? Description { get; set; }
+
+    [JsonPropertyName("productImage")]
+    public string? ProductImage { get; set; }
+
+    [JsonPropertyName("categories")]
+    public List<Category>? Categories { get; set; }
+}
+
+public class Category
+{
+    [JsonPropertyName("categoryName")]
+    public string? CategoryName { get; set; }
 }

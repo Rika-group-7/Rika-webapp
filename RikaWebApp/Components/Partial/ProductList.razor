@@ -1,42 +1,62 @@
 ﻿@page "/products"
+
+@using GraphQL
+@using RikaWebApp.Services
+@inject RikaWebApp.Services.ProductService ProductService
 @*_ProductList.razor.css*@
+
+
+
 
 <div class="container">
     <div class="product-list row">
-        @foreach (var product in Products)
+        @if (Products == null || Products.Count == 0)
         {
-            <div class="col-3 product-items">
-                <img src="@product.ImageUrl" alt="@product.Title" class="product-image" />
-                <h4>@product.Title</h4>
-                <p>@product.Ingress</p>
-                <p>Pris: @product.Price?.ToString("C")</p>
-            </div>
+            <p>Loading products ...</p>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var product in Products)
+                {
+                    <li class="col-3 product-items">
+                        <img src="@product.ProductImage" alt="@product.Title" class="product-image" />
+                        <h4>Title: @product.Title</h4>
+                        <p>Product: @product.Description</p>
+                        <p>Price: @(product.Price ?? 0):C</p>
+                        <p>
+                            Categories:
+                            @if (product.Categories != null && product.Categories.Any())
+                            {
+                                @foreach (var category in product.Categories)
+                                {
+                                    <span>@category.CategoryName</span>
+                                    @if (category != product.Categories.Last())
+                                    {
+                                        <span>, </span>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <span>None</span>
+                            }
+                        </p>
+                    </li>
+                }
+            </ul>
         }
     </div>
 </div>
 
 @code {
-    //Deklarera och initiera Products-listan
-    private List<Product> Products = new List<Product>
-    {
-        new Product { Id = 1, Title = "Clothes", Ingress = "Stilfulla kläder för alla tillfällen", Price = 199, ImageUrl = "/images/dress.jpg", Category = "Clothes"},
-        new Product { Id = 2, Title = "Bags", Ingress = "Eleganta och praktiska väskor", Price = 299, ImageUrl = "/images/bag.jpg", Category = "Bags"},
-        new Product { Id = 3, Title = "Shoes", Ingress = "Bekväma skor för vardag och fest", Price = 399, ImageUrl = "/images/shoes.jpg", Category = "Shoes"},
-        new Product { Id = 4, Title = "Jewelry", Ingress = "Vackra smycken som förgyller dagen", Price = 499, ImageUrl = "/images/jewelry.jpg", Category = "Jewelry"},
-        new Product { Id = 5, Title = "Electronics", Ingress = "Senaste tekniken för ditt hem", Price = 599, ImageUrl = "/images/electronic.jpg", Category = "Electronics"},
-    };
-}
+    private List<Product>? Products;
 
-:
-
-@code {
-    public class Product
+    protected override async Task OnInitializedAsync()
     {
-        public int Id { get; set; }
-        public string? Title { get; set; } // Namn eller titel på produkten
-        public string? Ingress { get; set; } // Kort beskrivning av produkten
-        public decimal? Price { get; set; } // Pris på produkten
-        public string? ImageUrl { get; set; } // URL till produktens namn
-        public string? Category { get; set; } // Kategori för produkter, t.ex "Clothes", "Bags" etc.
+        Products = await ProductService.GetProductsAsync();
+        Console.WriteLine($"Loaded {Products.Count} products"); // Log the number of products loaded
     }
 }
+
+
