@@ -1,15 +1,22 @@
 
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
+    max-width: 50rem;
+    margin: 3rem auto;
+    padding: 1.25rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
 
     .new-account-box {
         text-align: center;
-        padding-bottom: 2rem;
-        padding-top: 5rem;
+        padding: 0 2rem;
+
+        .signup-heading {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: #333;
+        }
 
         .text {
             color: gray;
@@ -21,7 +28,6 @@
         .signup-form {
             display: flex;
             flex-direction: column;
-            box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
             padding: 2rem;
 
             label {
@@ -29,13 +35,13 @@
                 padding-top: 1rem;
             }
 
-            input[type="text"],
-            input[type="email"],
-            input[type="password"] {
+            ::deep input[type="text"],
+            ::deep input[type="email"],
+            ::deep input[type="password"] {
                 width: 100%;
                 padding: 10px;
                 border: 1px solid #ddd;
-                border-radius: 4px;
+                border-radius: 5px;
                 font-size: 14px;
                 transition: border-color 0.2s;
 
@@ -77,10 +83,16 @@
             }
 
             .btn {
+                width: 100%;
+                padding: 0.75rem;
+                font-size: 1rem;
+                font-weight: bold;
                 background-color: black;
                 color: white;
-                align-self: center;
-                width: 300px;
+                border: none;
+                border-radius: 0.25rem;
+                cursor: pointer;
+                transition: background-color 0.5s;
 
                 &:hover {
                     background-color: white;

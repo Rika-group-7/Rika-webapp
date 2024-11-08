@@ -5,39 +5,41 @@
 @inject NavigationManager Navigation
 
 
-
 <div class="container">
-    <div class="rika-logga">
-        <h1>Rika</h1>
-        <h3>Online Shopping</h3>
-    </div>
     <div class="welcome-box">
         <h3 class="welcome-heading">Welcome!</h3>
         <h6 class="welcome-text">Please log in or sign up to continue</h6>
     </div>
 
     <EditForm FormName="signin" OnValidSubmit="SignInUserAsync" Model="@signInModel" class="form-box">
-            <DataAnnotationsValidator></DataAnnotationsValidator>
-            <div class="signin-form">
-                <label class="form-label">Email</label>
-            <InputText @bind-Value="signInModel.Email" type="email" placeholder="Email" />
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <div class="signin-form">
+            <label class="form-label">Email</label>
+            <div class="input-group">
+                <i class="fas fa-envelope input-icon"></i>
+                <InputText @bind-Value="signInModel.Email" type="email" placeholder="Email" class="input-field" />
+            </div>
             <span><ValidationMessage For="() => signInModel.Email" class="text-danger"></ValidationMessage></span>
 
-                <label class="form-label">Password</label>
-                <InputText @bind-Value="signInModel.Password" type="password" placeholder="******" />
-                <span><ValidationMessage For="() => signInModel.Password" class="text-danger" ></ValidationMessage></span>
+            <label class="form-label">Password</label>
+            <div class="input-group">
+                <i class="fas fa-lock input-icon"></i>
+                <InputText @bind-Value="signInModel.Password" type="password" placeholder="Password" class="input-field" />
+            </div>
+            <span><ValidationMessage For="() => signInModel.Password" class="text-danger"></ValidationMessage></span>
 
-                <div class="checkbox">
-                    <input type="checkbox" />
-                    <label class="remember-me">Remember me</label>
-                </div>
-
-                <button class="btn">Login</button>
+            <div class="checkbox">
+                <input type="checkbox" />
+                <label class="remember-me">Remember me</label>
             </div>
 
-        </EditForm>
+            <button class="btn primary-btn">Login</button>
+        </div>
+    </EditForm>
 
-    <button @onclick="NavigateToSignUp" class="btn">Sign Up</button>
+    <div class="sign-up-btn">
+        <button @onclick="NavigateToSignUp" class="btn secondary-btn">Sign Up</button>
+    </div>
 
     @if (!string.IsNullOrEmpty(successMessage))
     {
@@ -49,19 +51,19 @@
     }
 
     <div class="external-signin">
-        <h6>or</h6>
-        <button class="btn">Continue With Facebook</button>
-        <button class="btn">Continue With Google</button>
-        <button class="btn">Continue With Apple</button>
+        <h6 class="or-divider">or</h6>
+        <button class="btn external-btn"><i class="fab fa-facebook"></i> Continue With Facebook</button>
+        <button class="btn external-btn"><i class="fab fa-google"></i> Continue With Google</button>
+        <button class="btn external-btn"><i class="fab fa-apple"></i> Continue With Apple</button>
     </div>
-
 </div>
+
 
 @code {
     private SignInModel signInModel = new SignInModel();
     private string confirmPassword = string.Empty;
-    private string successMessage;
-    private string errorMessage;
+    private string? successMessage;
+    private string? errorMessage;
 
     private async Task SignInUserAsync()
     {

@@ -1,29 +1,93 @@
 .container {
-    padding-top: 2rem;
+    max-width: 50rem;
+    margin-top: 3rem;
+    padding: 1.25rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
 
     .heading {
         text-align: center;
-        padding-bottom: 2rem;
-        padding-top: 1rem;
+        margin-bottom: 1.25rem;
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
 
         h6 {
-            color: gray;
+            font-size: 0.875rem;
+            color: #777;
         }
     }
 
-    form {
-        .form-box {
-            display: flex;
-            justify-content: center;
-            margin: 0 auto;
-            flex-direction: column;
-            box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
-            padding: 2rem;
-            width: 600px;
+    .form-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-            .inside-box {
-                padding: 2rem;
+        .inside-box {
+            width: 100%;
+
+            .code-inputs {
+                display: flex;
+                gap: 0.625rem;
+                justify-content: center;
+                margin-bottom: 1rem;
+
+                ::deep .input-code {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    text-align: center;
+                    font-size: 1.25rem;
+                    border: 0.0625rem solid #ddd;
+                    border-radius: 0.25rem;
+                    transition: border-color 0.2s;
+
+                    &:focus {
+                        border-color: #007bff;
+                        outline: none;
+                    }
+                }
+            }
+
+            .alert {
+                display: block;
                 text-align: center;
+                padding: 0.625rem;
+                margin-bottom: 1rem;
+                border-radius: 0.25rem;
+                font-size: 0.875rem;
+
+                &.alert-success {
+                    background-color: #d4edda;
+                    color: #155724;
+                }
+
+                &.alert-danger {
+                    background-color: #f8d7da;
+                    color: #721c24;
+                }
+            }
+
+            .btn {
+                width: 100%;
+                padding: 0.75rem;
+                font-size: 1rem;
+                font-weight: bold;
+                background-color: black;
+                color: white;
+                border: none;
+                border-radius: 0.25rem;
+                cursor: pointer;
+                transition: background-color 0.5s;
+
+                &:hover {
+                    background-color: white;
+                    border: 1px solid lightgray;
+                    color: black;
+                }
             }
         }
     }

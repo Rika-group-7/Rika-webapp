@@ -1,13 +1,19 @@
 ﻿.container {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-direction: column;
+  max-width: 50rem;
+  margin: 3rem auto;
+  padding: 1.25rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
 }
 .container .new-account-box {
   text-align: center;
-  padding-bottom: 2rem;
-  padding-top: 5rem;
+  padding: 0 2rem;
+}
+.container .new-account-box .signup-heading {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #333;
 }
 .container .new-account-box .text {
   color: gray;
@@ -15,26 +21,25 @@
 .container .form-box .signup-form {
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
   padding: 2rem;
 }
 .container .form-box .signup-form label {
   font-weight: bold;
   padding-top: 1rem;
 }
-.container .form-box .signup-form input[type=text],
-.container .form-box .signup-form input[type=email],
-.container .form-box .signup-form input[type=password] {
+.container .form-box .signup-form ::deep input[type=text],
+.container .form-box .signup-form ::deep input[type=email],
+.container .form-box .signup-form ::deep input[type=password] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 14px;
   transition: border-color 0.2s;
 }
-.container .form-box .signup-form input[type=text]:focus,
-.container .form-box .signup-form input[type=email]:focus,
-.container .form-box .signup-form input[type=password]:focus {
+.container .form-box .signup-form ::deep input[type=text]:focus,
+.container .form-box .signup-form ::deep input[type=email]:focus,
+.container .form-box .signup-form ::deep input[type=password]:focus {
   border-color: #007bff;
   outline: none;
 }
@@ -65,10 +70,16 @@
   color: #721c24;
 }
 .container .form-box .signup-form .btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
   background-color: black;
   color: white;
-  align-self: center;
-  width: 300px;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.5s;
 }
 .container .form-box .signup-form .btn:hover {
   background-color: white;

@@ -11,11 +11,17 @@
         <h6>Enter your verification code</h6>
     </div>
     
-
     <EditForm Model="inputModel" FormName="verification-code" OnValidSubmit="VerifyAccount">
         <div class="form-box">
             <div class="inside-box">
-                <InputText @bind-Value="inputModel.Code" class="input-code" placeholder="Enter your code"></InputText>
+                <div class="code-inputs">
+                    <InputText @bind-Value="inputModel.Code1" maxlength="1" class="input-code" placeholder="0" @oninput="MoveToNext" />
+                    <InputText @bind-Value="inputModel.Code2" maxlength="1" class="input-code" placeholder="0" @oninput="MoveToNext" />
+                    <InputText @bind-Value="inputModel.Code3" maxlength="1" class="input-code" placeholder="0" @oninput="MoveToNext" />
+                    <InputText @bind-Value="inputModel.Code4" maxlength="1" class="input-code" placeholder="0" @oninput="MoveToNext" />
+                    <InputText @bind-Value="inputModel.Code5" maxlength="1" class="input-code" placeholder="0" @oninput="MoveToNext" />
+                    <InputText @bind-Value="inputModel.Code6" maxlength="1" class="input-code" placeholder="0" />
+                </div>
 
                 @if (!string.IsNullOrEmpty(errorMessage))
                 {
@@ -29,7 +35,6 @@
 
                 <button class="btn">Verify account</button>
             </div>
-            
         </div>
     </EditForm>
 </div>
@@ -39,14 +44,28 @@
     private string errorMessage = string.Empty;
     private string successMessage = string.Empty;
 
+    private void MoveToNext(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString();
+        if (!string.IsNullOrEmpty(value) && value.Length == 1)
+        {
+            // Logic to move focus to the next input
+        }
+    }
     private sealed class CodeInputModel
     {
         [Required]
-        public string Code { get; set; } = "";
+        public string Code1 { get; set; } = "";
+        public string Code2 { get; set; } = "";
+        public string Code3 { get; set; } = "";
+        public string Code4 { get; set; } = "";
+        public string Code5 { get; set; } = "";
+        public string Code6 { get; set; } = "";
+
+        public string FullCode => $"{Code1}{Code2}{Code3}{Code4}{Code5}{Code6}";
 
         public string Email { get; set; } = ""; // Holds the email retrieved by UserId
-
-        public string UserId { get; set; } = "";  // UserId to retrieve email
+        public string UserId { get; set; } = ""; 
     }
 
     protected override async Task OnInitializedAsync()
@@ -96,9 +115,8 @@
         try
         {
             var response = await Http.PostAsJsonAsync("https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/Auth/confirm", new
-            
             {
-                Code = inputModel.Code,
+                Code = inputModel.FullCode, 
                 Email = inputModel.Email
             });
 
@@ -127,10 +145,6 @@
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public bool IsAdmin { get; set; }
-        public string? ProfilePictureUrl { get; set; }
-        public string? ProfileDescription { get; set; }
-        public string? Gender { get; set; }
-        public int? Age { get; set; }
-        public string? EmailConfirmationToken { get; set; }
     }
 }
+    

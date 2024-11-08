@@ -1,63 +1,154 @@
-﻿.container .rika-logga {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+﻿.container {
+  max-width: 50rem;
+  margin: 3rem auto;
+  padding: 1.25rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
 }
 .container .welcome-box {
-  padding-bottom: 2rem;
-  padding-top: 5rem;
+  text-align: center;
+  padding: 0 2rem;
+}
+.container .welcome-box .welcome-heading {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #333;
 }
 .container .welcome-box .welcome-text {
   color: gray;
+  font-size: 1rem;
+  margin-top: 0.5rem;
 }
-.container form .signin-form {
+.container .form-box .signin-form {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
 }
-.container form .signin-form label {
+.container .form-box .signin-form .form-label {
   font-weight: bold;
-  padding-top: 1rem;
+  color: #333;
+  margin-bottom: 0;
 }
-.container form .signin-form input {
-  border: none;
-  border-bottom: 1px solid gray;
+.container .form-box .signin-form .input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
-.container form .signin-form .checkbox {
+.container .form-box .signin-form .input-group .input-icon {
+  position: absolute;
+  left: 10px;
+  color: #aaa;
+  font-size: 1rem;
+}
+.container .form-box .signin-form .input-group ::deep .input-field {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+.container .form-box .signin-form .input-group ::deep .input-field:focus {
+  border-color: #007bff;
+  outline: none;
+}
+.container .form-box .signin-form .checkbox {
   display: flex;
   flex-direction: row;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  align-items: center;
 }
-.container form .signin-form .checkbox label {
+.container .form-box .signin-form .checkbox label {
   padding-left: 1rem;
-  padding-top: 0;
+  font-size: 0.875rem;
+  color: gray;
 }
-.container form .signin-form .btn {
+.container .form-box .signin-form .alert {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.container .form-box .signin-form .alert.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+.container .form-box .signin-form .alert.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+.container .form-box .signin-form .primary-btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
   background-color: black;
   color: white;
-  align-self: flex-start;
-  width: 300px;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.5s;
 }
-.container form .signin-form .btn:hover {
+.container .form-box .signin-form .primary-btn:hover {
   background-color: white;
   border: 1px solid lightgray;
   color: black;
 }
+.container .sign-up-btn {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding: 0 2rem;
+}
+.container .sign-up-btn .secondary-btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+.container .sign-up-btn .secondary-btn:hover {
+  background-color: gray;
+  color: #fff;
+}
 .container .external-signin {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding: 0 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.container .external-signin .or-divider {
+  font-size: 0.875rem;
+  color: gray;
+  margin: 1rem 0;
+}
+.container .external-signin .external-btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
-.container .external-signin .btn {
-  border: 1px solid lightgray;
-  width: 300px;
+.container .external-signin .external-btn:hover {
+  background-color: gray;
+  color: #fff;
 }
-.container .external-signin .btn:hover {
-  background-color: black;
-  border: 1px solid black;
-  color: white;
+.container .external-signin .external-btn i {
+  font-size: 1rem;
 }
