@@ -1,0 +1,183 @@
+﻿@page "/confirmaccount"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.WebUtilities
+@inject NavigationManager Navigation
+@inject HttpClient Http
+@rendermode InteractiveServer
+
+<div class="container">
+    <div class="heading">
+        <h3>Verify account</h3>
+        <h6>Enter your verification code</h6>
+    </div>
+    
+    <EditForm Model="inputModel" FormName="verification-code" OnValidSubmit="VerifyAccount">
+        <div class="form-box">
+            <div class="inside-box">
+                <div class="code-inputs">
+                    <input @bind="inputModel.Code1" maxlength="1" class="input-code" @ref="input1" @oninput="e => MoveToNext(e, 1)" />
+                    <input @bind="inputModel.Code2" maxlength="1" class="input-code" @ref="input2" @oninput="e => MoveToNext(e, 2)" />
+                    <input @bind="inputModel.Code3" maxlength="1" class="input-code" @ref="input3" @oninput="e => MoveToNext(e, 3)" />
+                    <input @bind="inputModel.Code4" maxlength="1" class="input-code" @ref="input4" @oninput="e => MoveToNext(e, 4)" />
+                    <input @bind="inputModel.Code5" maxlength="1" class="input-code" @ref="input5" @oninput="e => MoveToNext(e, 5)" />
+                    <input @bind="inputModel.Code6" maxlength="1" class="input-code" @ref="input6" @oninput="e => MoveToNext(e, 6)" />
+                </div>
+
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger">@errorMessage</div>
+                }
+
+                @if (!string.IsNullOrEmpty(successMessage))
+                {
+                    <div class="alert alert-success">@successMessage</div>
+                }
+
+                <button class="btn">Verify account</button>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private CodeInputModel inputModel { get; set; } = new();
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
+    private ElementReference input1;
+    private ElementReference input2;
+    private ElementReference input3;
+    private ElementReference input4;
+    private ElementReference input5;
+    private ElementReference input6;
+
+    private async Task MoveToNext(ChangeEventArgs e, int inputNumber)
+    {
+        var value = e.Value?.ToString()?.ToUpper(); 
+        if (!string.IsNullOrEmpty(value) && value.Length == 1)
+        {
+            switch (inputNumber)
+            {
+                case 1:
+                    inputModel.Code1 = value;
+                    await input2.FocusAsync();
+                    break;
+                case 2:
+                    inputModel.Code2 = value;
+                    await input3.FocusAsync();
+                    break;
+                case 3:
+                    inputModel.Code3 = value;
+                    await input4.FocusAsync();
+                    break;
+                case 4:
+                    inputModel.Code4 = value;
+                    await input5.FocusAsync();
+                    break;
+                case 5:
+                    inputModel.Code5 = value;
+                    await input6.FocusAsync();
+                    break;
+                case 6:
+                    inputModel.Code6 = value;
+                    break;
+            }
+        }
+    }
+
+
+    private sealed class CodeInputModel
+    {
+        [Required]
+        public string Code1 { get; set; } = "";
+        public string Code2 { get; set; } = "";
+        public string Code3 { get; set; } = "";
+        public string Code4 { get; set; } = "";
+        public string Code5 { get; set; } = "";
+        public string Code6 { get; set; } = "";
+
+        public string FullCode => $"{Code1}{Code2}{Code3}{Code4}{Code5}{Code6}";
+
+        public string Email { get; set; } = ""; // Holds the email retrieved by UserId
+        public string UserId { get; set; } = ""; 
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Retrieve UserId from the URL query parameter
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("userId", out var userId))
+        {
+            inputModel.UserId = userId!;
+            await FetchEmailFromUserId(userId!);
+        }
+        else
+        {
+            errorMessage = "User ID is missing from the URL.";
+        }
+    }
+
+    private async Task FetchEmailFromUserId(string userId)
+    {
+        try
+        {
+            var response = await Http.GetAsync($"https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/User/getbyid/{userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var userDto = await response.Content.ReadFromJsonAsync<UserDto>();
+                inputModel.Email = userDto?.Email ?? string.Empty;
+
+                if (string.IsNullOrEmpty(inputModel.Email))
+                {
+                    errorMessage = "Failed to retrieve email for the given user ID.";
+                }
+            }
+            else
+            {
+                errorMessage = "Failed to retrieve email for the given user ID.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An error occurred while fetching email: {ex.Message}";
+        }
+    }
+
+    private async Task VerifyAccount()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/Auth/confirm", new
+            {
+                Code = inputModel.FullCode, 
+                Email = inputModel.Email
+            });
+
+            if (response.IsSuccessStatusCode)
+            {
+                successMessage = "Your account has been successfully verified!";
+                Navigation.NavigateTo("/signin");
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                errorMessage = "Verification failed. Please check your code and try again.";
+                Console.WriteLine(errorContent);
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An error occurred during verification: {ex.Message}";
+        }
+    }
+
+    public class UserDto
+    {
+        public string Id { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public bool IsAdmin { get; set; }
+    }
+}
+    

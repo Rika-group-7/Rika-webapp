@@ -1,0 +1,105 @@
+
+
+.container {
+    max-width: 50rem;
+    margin: 3rem auto;
+    padding: 1.25rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+
+    .new-account-box {
+        text-align: center;
+        padding: 0 2rem;
+
+        .signup-heading {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .text {
+            color: gray;
+        }
+    }
+
+    .form-box {
+
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+
+            label {
+                font-weight: bold;
+                padding-top: 1rem;
+            }
+
+            ::deep input[type="text"],
+            ::deep input[type="email"],
+            ::deep input[type="password"] {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 14px;
+                transition: border-color 0.2s;
+
+                &:focus {
+                    border-color: #007bff;
+                    outline: none;
+                }
+            }
+
+            .checkbox {
+                display: flex;
+                flex-direction: row;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+
+                label {
+                    padding-left: 1rem;
+                    padding-top: 0;
+                }
+            }
+
+            .alert {
+                display: block;
+                text-align: center;
+                padding: 10px;
+                margin-bottom: 15px;
+                border-radius: 4px;
+                font-size: 14px;
+
+                &.alert-success {
+                    background-color: #d4edda;
+                    color: #155724;
+                }
+
+                &.alert-danger {
+                    background-color: #f8d7da;
+                    color: #721c24;
+                }
+            }
+
+            .btn {
+                width: 100%;
+                padding: 0.75rem;
+                font-size: 1rem;
+                font-weight: bold;
+                background-color: black;
+                color: white;
+                border: none;
+                border-radius: 0.25rem;
+                cursor: pointer;
+                transition: background-color 0.5s;
+
+                &:hover {
+                    background-color: white;
+                    border: 1px solid lightgray;
+                    color: black;
+                }
+            }
+        }
+    }
+}

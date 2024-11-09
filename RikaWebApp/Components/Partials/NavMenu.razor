@@ -1,4 +1,9 @@
-﻿<header class="py-4">
+﻿
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+
+<header class="py-4">
     <div class="header-title">
         <NavLink href="/" ><img src="/Images/rikalogo.svg" alt=""></NavLink>
         <button class="menu-button py-3"><i class="fa-solid fa-bars"></i></button>
@@ -22,10 +27,18 @@
                 <i class="fa-solid fa-xmark search-close"></i>
             </div>
         </form>
-        <div class="auth-links">
-            <NavLink href="/signin" class="sign-in">Sign In</NavLink>
-            <NavLink href="/signup" class="sign-up">Sign Up</NavLink>
-        </div>
+        <AuthorizeView>
+            <Authorized>
+                <NavLink href="/profile">Profile</NavLink>
+            </Authorized>
+            <NotAuthorized>
+                <div class="auth-links">
+                    <NavLink class="sign-in" href="/signin">Sign In</NavLink>
+                    <NavLink class="sign-up" href="/signup">Sign Up</NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
     </div>
     <nav class="mobile-nav py-3">
         <ul>
@@ -35,11 +48,11 @@
             <li><NavLink href="#" class="nav-icon"><i class="fa-solid fa-user"></i></NavLink></li>
         </ul>
     </nav>
-
-
-
 </header>
 
+@code {
+
+}
 
 
 
