@@ -1,0 +1,56 @@
+﻿
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+
+<header class="py-4">
+    <div class="header-title">
+        <NavLink href="/" ><img src="/Images/rikalogo.svg" alt=""></NavLink>
+        <button class="menu-button py-3"><i class="fa-solid fa-bars"></i></button>
+    </div>
+
+    <nav class="desktop-nav">
+        <ul>
+            <li><NavLink class="link" href="#">Home</NavLink></li>
+            <li><NavLink class="link" href="#">New Arrivals</NavLink></li>
+            <li><NavLink class="link" href="#">Popular</NavLink></li>
+            <li><NavLink class="link" href="#">Contact</NavLink></li>
+        </ul>
+    </nav>
+    <div class="header-actions">
+
+
+        <form class="search-form" action="">
+            <input type="search" placeholder="Search..." class="search-input">
+            <div class="search-button">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <i class="fa-solid fa-xmark search-close"></i>
+            </div>
+        </form>
+        <AuthorizeView>
+            <Authorized>
+                <NavLink href="/profile">Profile</NavLink>
+            </Authorized>
+            <NotAuthorized>
+                <NavLink href="/signin">Sign In</NavLink>
+                <NavLink href="/signup">Sign Up</NavLink>
+            </NotAuthorized>
+        </AuthorizeView>
+
+    </div>
+    <nav class="mobile-nav py-3">
+        <ul>
+            <li><NavLink href="#" class="nav-icon"><i class="fa-solid fa-house"></i></NavLink></li>
+            <li><NavLink href="#" class="nav-icon"><i class="fa-solid fa-cart-shopping"></i></NavLink></li>
+            <li><NavLink href="#" class="nav-icon"><i class="fa-solid fa-bell"></i></NavLink></li>
+            <li><NavLink href="#" class="nav-icon"><i class="fa-solid fa-user"></i></NavLink></li>
+        </ul>
+    </nav>
+</header>
+
+@code {
+
+}
+
+
+
