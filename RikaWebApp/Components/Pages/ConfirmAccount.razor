@@ -123,6 +123,7 @@
             if (response.IsSuccessStatusCode)
             {
                 successMessage = "Your account has been successfully verified!";
+                await Task.Delay(5000);
                 Navigation.NavigateTo("/signin");
             }
             else
