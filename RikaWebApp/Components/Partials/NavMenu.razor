@@ -32,8 +32,10 @@
                 <NavLink href="/profile">Profile</NavLink>
             </Authorized>
             <NotAuthorized>
-                <NavLink href="/signin">Sign In</NavLink>
-                <NavLink href="/signup">Sign Up</NavLink>
+                <div class="auth-links">
+                    <NavLink class="sign-in" href="/signin">Sign In</NavLink>
+                    <NavLink class="sign-up" href="/signup">Sign Up</NavLink>
+                </div>
             </NotAuthorized>
         </AuthorizeView>
 
