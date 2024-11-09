@@ -15,12 +15,12 @@
         <div class="form-box">
             <div class="inside-box">
                 <div class="code-inputs">
-                    <InputText @bind-Value="inputModel.Code1" maxlength="1" class="input-code" placeholder="0" @oninput="MoveToNext" />
-                    <InputText @bind-Value="inputModel.Code2" maxlength="1" class="input-code" placeholder="0" @oninput="MoveToNext" />
-                    <InputText @bind-Value="inputModel.Code3" maxlength="1" class="input-code" placeholder="0" @oninput="MoveToNext" />
-                    <InputText @bind-Value="inputModel.Code4" maxlength="1" class="input-code" placeholder="0" @oninput="MoveToNext" />
-                    <InputText @bind-Value="inputModel.Code5" maxlength="1" class="input-code" placeholder="0" @oninput="MoveToNext" />
-                    <InputText @bind-Value="inputModel.Code6" maxlength="1" class="input-code" placeholder="0" />
+                    <input @bind="inputModel.Code1" maxlength="1" class="input-code" @ref="input1" @oninput="e => MoveToNext(e, 1)" />
+                    <input @bind="inputModel.Code2" maxlength="1" class="input-code" @ref="input2" @oninput="e => MoveToNext(e, 2)" />
+                    <input @bind="inputModel.Code3" maxlength="1" class="input-code" @ref="input3" @oninput="e => MoveToNext(e, 3)" />
+                    <input @bind="inputModel.Code4" maxlength="1" class="input-code" @ref="input4" @oninput="e => MoveToNext(e, 4)" />
+                    <input @bind="inputModel.Code5" maxlength="1" class="input-code" @ref="input5" @oninput="e => MoveToNext(e, 5)" />
+                    <input @bind="inputModel.Code6" maxlength="1" class="input-code" @ref="input6" @oninput="e => MoveToNext(e, 6)" />
                 </div>
 
                 @if (!string.IsNullOrEmpty(errorMessage))
@@ -43,15 +43,48 @@
     private CodeInputModel inputModel { get; set; } = new();
     private string errorMessage = string.Empty;
     private string successMessage = string.Empty;
+    private ElementReference input1;
+    private ElementReference input2;
+    private ElementReference input3;
+    private ElementReference input4;
+    private ElementReference input5;
+    private ElementReference input6;
 
-    private void MoveToNext(ChangeEventArgs e)
+    private async Task MoveToNext(ChangeEventArgs e, int inputNumber)
     {
-        var value = e.Value?.ToString();
+        var value = e.Value?.ToString()?.ToUpper(); 
         if (!string.IsNullOrEmpty(value) && value.Length == 1)
         {
-            // Logic to move focus to the next input
+            switch (inputNumber)
+            {
+                case 1:
+                    inputModel.Code1 = value;
+                    await input2.FocusAsync();
+                    break;
+                case 2:
+                    inputModel.Code2 = value;
+                    await input3.FocusAsync();
+                    break;
+                case 3:
+                    inputModel.Code3 = value;
+                    await input4.FocusAsync();
+                    break;
+                case 4:
+                    inputModel.Code4 = value;
+                    await input5.FocusAsync();
+                    break;
+                case 5:
+                    inputModel.Code5 = value;
+                    await input6.FocusAsync();
+                    break;
+                case 6:
+                    inputModel.Code6 = value;
+                    break;
+            }
         }
     }
+
+
     private sealed class CodeInputModel
     {
         [Required]
@@ -123,7 +156,6 @@
             if (response.IsSuccessStatusCode)
             {
                 successMessage = "Your account has been successfully verified!";
-                await Task.Delay(5000);
                 Navigation.NavigateTo("/signin");
             }
             else

@@ -32,7 +32,14 @@
                 <input type="checkbox" />
                 <label class="remember-me">Remember me</label>
             </div>
-
+            @if (!string.IsNullOrEmpty(successMessage))
+            {
+                <span class="alert alert-success">@successMessage</span>
+            }
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <span class="alert alert-danger">@errorMessage</span>
+            }
             <button class="btn primary-btn">Login</button>
         </div>
     </EditForm>
@@ -41,14 +48,6 @@
         <button @onclick="NavigateToSignUp" class="btn secondary-btn">Sign Up</button>
     </div>
 
-    @if (!string.IsNullOrEmpty(successMessage))
-    {
-        <span class="alert alert-success">@successMessage</span>
-    }
-    @if (!string.IsNullOrEmpty(errorMessage))
-    {
-        <span class="alert alert-danger">@errorMessage</span>
-    }
 
     <div class="external-signin">
         <h6 class="or-divider">or</h6>
@@ -71,8 +70,8 @@
         var response = await Http.PostAsJsonAsync("https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/Auth/signin", signInModel);
         if (response.IsSuccessStatusCode)
         {
-            successMessage = "200 ok";
-
+            successMessage = "Redirecting to home...";
+            Navigation.NavigateTo("/");
         }
         else
         {
