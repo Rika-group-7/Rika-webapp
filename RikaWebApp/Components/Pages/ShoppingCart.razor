@@ -1,7 +1,9 @@
 ﻿@page "/shoppingcart"
 
+@layout EmptyLayout
 @rendermode InteractiveServer
 
+<script src="https://kit.fontawesome.com/5df274fda8.js" crossorigin="anonymous"></script>
 <section class="shoppingcart-section">
     <div class="container">
         <div class="content"> 
@@ -106,6 +108,9 @@
 </section>
 
 @code {
+
+    
+
     private int Counter { get; set; } = 1;
 
     private void IncrementCounter()
@@ -125,4 +130,7 @@
     {
         // Lägg till navigeringslogik här om det behövs
     }
+
+
+    
 }
