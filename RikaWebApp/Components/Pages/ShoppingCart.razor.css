@@ -108,6 +108,7 @@
   text-decoration: none;
   color: black;
   background-color: #FFFFFF;
+  flex-grow: 1;
 }
 .shoppingcart-section .container .content .my-cart .cart-items .cart-item .item-details .link-part .item-left-side {
   margin-right: 5px;
@@ -223,4 +224,89 @@
   border-radius: 9px;
   background-color: white;
   color: black;
+}
+@media screen and (max-width: 1200px) {
+  .container .content {
+    padding: 5% 0;
+  }
+  .container .content .cart-items {
+    grid-template-columns: 1fr;
+  }
+  .container .content .cart-item {
+    height: auto;
+  }
+  .container .content .item-left-side img {
+    width: 60px;
+    height: 60px;
+  }
+  .container .content .item-right-side .product-title {
+    font-size: 14px;
+  }
+  .container .content .item-right-side .product-description {
+    font-size: 12px;
+  }
+  .container .content .item-right-side .product-price {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .shoppingcart-navigation .go-back-to-page {
+    height: 30px;
+    width: 30px;
+  }
+  .shoppingcart-navigation .go-back-to-page i {
+    font-size: 16px;
+  }
+  .shoppingcart-navigation .shoppingcart-nav-comp {
+    width: 25px;
+    height: 30px;
+  }
+  .shoppingcart-navigation .shoppingcart-nav-comp .shoppingcart-nav {
+    width: 25px;
+    height: 25px;
+  }
+  .shoppingcart-navigation .shoppingcart-nav-comp .shoppingcart-nav i {
+    font-size: 10px;
+  }
+  .shoppingcart-navigation .shoppingcart-nav-comp .items-in-bag-circle {
+    height: 10px;
+    width: 10px;
+    font-size: 6px;
+  }
+  .proceed-checkout {
+    padding-bottom: 10%;
+  }
+  .proceed-checkout .proceed-btn {
+    padding: 10px 12px;
+  }
+  .proceed-checkout .proceed-btn span {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .cart-item .item-details {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cart-item .change-quantity {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 10px;
+  }
+  .proceed-checkout .total-price-items {
+    flex-direction: column;
+    align-items: center;
+  }
+  .proceed-checkout .button-area .proceed-btn {
+    flex-direction: column;
+  }
+  .proceed-checkout .button-area .proceed-btn span {
+    margin-bottom: 5px;
+  }
 }
