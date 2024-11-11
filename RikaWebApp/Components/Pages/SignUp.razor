@@ -67,7 +67,7 @@
     private string? successMessage;
     private string? errorMessage;
 
-    private async Task RegisterUserAsync()
+    public async Task RegisterUserAsync()
     {
         if (signUpModel.Password != confirmPassword)
         {
