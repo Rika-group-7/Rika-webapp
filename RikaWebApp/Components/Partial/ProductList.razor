@@ -43,10 +43,16 @@
             else
             {
                 <p>No products available.</p>
-            }          
+            }
         }
     </div>
 </div>
+
+
+
+<!-- Använd endast ProductPagination-komponenten för pagineringen -->
+<ProductPagination HasPreviousPage="HasPreviousPage" HasNextPage="HasNextPage"
+                   OnPreviousPage="PreviousPage" OnNextPage="NextPage" />
 
 @code {
     private List<Product>? Products;
@@ -54,15 +60,26 @@
     private string? ErrorMessage;
 
     private int CurrentPage = 1;
-    private int PageSize = 1; // Ändrat från 10 till 1
+    private int PageSize => CurrentPage == 1 ? 3 : 2; // Dynamiskt PageSize för sida 1 och 2
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            // Hämta produkter från ProductService
             Products = await ProductService.GetProductsAsync();
+            Console.WriteLine($"Loaded {Products?.Count ?? 0} products");
+
+            if (Products != null)
+            {
+                foreach (var product in Products)
+                {
+                    Console.WriteLine($"Product: {product.Title} - Price: {product.Price}");
+                }
+            }
+
+            // Uppdatera paginerade produkter
             UpdatePaginatedProducts();
-            Console.WriteLine($"Loaded {Products.Count} products");
         }
         catch (Exception ex)
         {
@@ -75,10 +92,12 @@
     {
         if (Products != null)
         {
+            // Använd dynamiskt PageSize baserat på CurrentPage
             PaginatedProducts = Products
                 .Skip((CurrentPage - 1) * PageSize)
                 .Take(PageSize)
                 .ToList();
+            Console.WriteLine($"Current Page: {CurrentPage}, Showing {PaginatedProducts.Count} products");
         }
     }
 
@@ -86,8 +105,9 @@
     {
         if (HasNextPage)
         {
-            CurrentPage++; // Öka CurrentPage vid navigering till nästa sida
+            CurrentPage++;
             UpdatePaginatedProducts();
+            StateHasChanged();
             Console.WriteLine($"Navigated to next page. CurrentPage: {CurrentPage}");
         }
         else
@@ -100,8 +120,9 @@
     {
         if (HasPreviousPage)
         {
-            CurrentPage--; // Minska CurrentPage vid navigering till föregående sida.
+            CurrentPage--;
             UpdatePaginatedProducts();
+            StateHasChanged();
             Console.WriteLine($"Navigated to previous page. CurrentPage: {CurrentPage}");
         }
         else
@@ -110,32 +131,28 @@
         }
     }
 
-    private bool HasNextPage 
+    private bool HasNextPage
     {
         get
         {
             if (Products == null)
             {
-                Console.WriteLine("HasNextPage: Products is null, returning false.");
                 return false;
             }
 
-            int totalPages = (int)Math.Ceiling(Products.Count / (double)PageSize);
-            bool hasNext = CurrentPage < totalPages;
-
-            Console.WriteLine($"HasNextPage: CurrentPage={CurrentPage}, TotalPages={totalPages}, HasNext={hasNext}");
+            // Kontrollera om det finns fler produkter efter aktuell sida
+            int remainingProducts = Products.Count - ((CurrentPage - 1) * PageSize);
+            bool hasNext = remainingProducts > PageSize;
+            Console.WriteLine($"HasNextPage: CurrentPage={CurrentPage}, RemainingProducts={remainingProducts}, HasNext={hasNext}");
             return hasNext;
         }
     }
-
 
     private bool HasPreviousPage
     {
         get
         {
-            bool hasPrevious = CurrentPage > 1;
-            Console.WriteLine($"HasPreviousPage: CurrentPage={CurrentPage}, HasPrevious={hasPrevious}");
-            return hasPrevious;
+            return CurrentPage > 1;
         }
     }
 }
