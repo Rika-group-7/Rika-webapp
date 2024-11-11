@@ -2,5 +2,13 @@
   {
     "outputFile": "Components/Partial/ProductList.razor.css",
     "inputFile": "Components/Partial/ProductList.razor.scss"
+  },
+  {
+    "outputFile": "Components/Partial/Pagination.razor.css",
+    "inputFile": "Components/Partial/Pagination.razor.scss"
+  },
+  {
+    "outputFile": "Components/Partial/ProductPagination.razor.css",
+    "inputFile": "Components/Partial/ProductPagination.razor.scss"
   }
 ]

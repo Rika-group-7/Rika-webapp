@@ -1,82 +1,141 @@
 ﻿@page "/products"
-
 @using GraphQL
 @using RikaWebApp.Services
 @inject RikaWebApp.Services.ProductService ProductService
-
-
+@rendermode InteractiveServer
 
 <div class="container">
     <div class="product-list">
         @if (ErrorMessage != null)
         {
-            <p class="text-danger">@ErrorMessage</p> //Felmeddelande om något går fel
+            <p class="text-danger">@ErrorMessage</p>
         }
         else if (Products == null)
         {
-            // Spinner-laddningsindikator 
             <div class="spinner-border text-primary" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
         }
-        else if (Products.Count == 0)
+        else if (PaginatedProducts != null && PaginatedProducts.Count == 0)
         {
-            <p>No products available.</p> //Meddelande om listan är tom
+            <p>No products available.</p>
         }
         else
         {
-            <div class="row">
-                @foreach (var product in Products)
-                {
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <div class="card product-item">
-                            <img src="@product.ProductImage" alt="@product.Title" class="card-img-top product-image" />
-                            <div class="card-body">
-                                <h5 class="card-title">@product.Title</h5>
-                                <p class="card-text">@product.Description</p>
-                                <p class="card-text">Price: @(product.Price ?? 0):Kr</p>
-                                <p class="card-text">
-                                    Categories:
-                                    @if (product.Categories != null && product.Categories.Any())
-                                    {
-                                        @foreach (var category in product.Categories)
-                                        {
-                                            <span>@category.CategoryName</span>
-                                            @if (category != product.Categories.Last())
-                                            {
-                                                <span>, </span>
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <span>None</span>
-                                    }
-                                </p>
+            @if (PaginatedProducts != null)
+            {
+                <div class="row">
+                    @foreach (var product in PaginatedProducts)
+                    {
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="card product-item">
+                                <img src="@product.ProductImage" alt="@product.Title" class="card-img-top product-image" />
+                                <div class="card-body">
+                                    <h5 class="card-title">@product.Title</h5>
+                                    <p class="card-text">@product.Description</p>
+                                    <p class="card-text">Price: @(product.Price ?? 0): kr</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-            </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No products available.</p>
+            }          
         }
     </div>
 </div>
 
 @code {
     private List<Product>? Products;
+    private List<Product>? PaginatedProducts;
     private string? ErrorMessage;
+
+    private int CurrentPage = 1;
+    private int PageSize = 1; // Ändrat från 10 till 1
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             Products = await ProductService.GetProductsAsync();
-            Console.WriteLine($"Loaded {Products.Count} products"); // Logga antal produkter
+            UpdatePaginatedProducts();
+            Console.WriteLine($"Loaded {Products.Count} products");
         }
         catch (Exception ex)
         {
-            ErrorMessage = "Failed to load products. Please try again later."; // Felsäkerhet
+            ErrorMessage = "Failed to load products. Please try again later.";
             Console.Error.WriteLine($"Error loading products: {ex.Message}");
+        }
+    }
+
+    private void UpdatePaginatedProducts()
+    {
+        if (Products != null)
+        {
+            PaginatedProducts = Products
+                .Skip((CurrentPage - 1) * PageSize)
+                .Take(PageSize)
+                .ToList();
+        }
+    }
+
+    private void NextPage()
+    {
+        if (HasNextPage)
+        {
+            CurrentPage++; // Öka CurrentPage vid navigering till nästa sida
+            UpdatePaginatedProducts();
+            Console.WriteLine($"Navigated to next page. CurrentPage: {CurrentPage}");
+        }
+        else
+        {
+            Console.WriteLine("No next page available.");
+        }
+    }
+
+    private void PreviousPage()
+    {
+        if (HasPreviousPage)
+        {
+            CurrentPage--; // Minska CurrentPage vid navigering till föregående sida.
+            UpdatePaginatedProducts();
+            Console.WriteLine($"Navigated to previous page. CurrentPage: {CurrentPage}");
+        }
+        else
+        {
+            Console.WriteLine("No previous page available.");
+        }
+    }
+
+    private bool HasNextPage 
+    {
+        get
+        {
+            if (Products == null)
+            {
+                Console.WriteLine("HasNextPage: Products is null, returning false.");
+                return false;
+            }
+
+            int totalPages = (int)Math.Ceiling(Products.Count / (double)PageSize);
+            bool hasNext = CurrentPage < totalPages;
+
+            Console.WriteLine($"HasNextPage: CurrentPage={CurrentPage}, TotalPages={totalPages}, HasNext={hasNext}");
+            return hasNext;
+        }
+    }
+
+
+    private bool HasPreviousPage
+    {
+        get
+        {
+            bool hasPrevious = CurrentPage > 1;
+            Console.WriteLine($"HasPreviousPage: CurrentPage={CurrentPage}, HasPrevious={hasPrevious}");
+            return hasPrevious;
         }
     }
 }

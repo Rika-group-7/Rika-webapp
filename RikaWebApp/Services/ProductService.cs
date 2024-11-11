@@ -52,6 +52,9 @@ public class ProductService
             // Deserialize the response
             var result = JsonSerializer.Deserialize<GraphQLResponse<ProductData>>(content);
 
+            // Lägg till en loggning för att verifiera antalet produkter i svaret
+            Console.WriteLine($"Antal produkter i API-svaret: {result?.Data?.GetProducts?.Count ?? 0}");
+
             if (result?.Data?.GetProducts == null)
             {
                 Console.WriteLine("Warning: No products found in the response.");

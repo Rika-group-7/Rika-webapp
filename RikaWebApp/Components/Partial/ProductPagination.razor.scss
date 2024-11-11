@@ -1,0 +1,17 @@
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-controls .btn-secondary {
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+
+.pagination-controls .btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
