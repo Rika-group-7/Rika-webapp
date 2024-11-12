@@ -3,6 +3,9 @@
 @inject HttpClient Http
 @rendermode InteractiveServer
 @inject NavigationManager Navigation
+@inject JwtAuthenticationStateProvider AuthenticationStateProvider
+@inject IHttpContextAccessor HttpContextAccessor
+
 
 
 <div class="container">
@@ -63,19 +66,43 @@
     private string confirmPassword = string.Empty;
     private string? successMessage;
     private string? errorMessage;
+    private string? jwtToken;
+
+    public class TokenResponse
+    {
+
+        public string? Token { get; set; }
+    }
 
     private async Task SignInUserAsync()
     {
-
         var response = await Http.PostAsJsonAsync("https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/Auth/signin", signInModel);
         if (response.IsSuccessStatusCode)
         {
-            successMessage = "Redirecting to home...";
-            Navigation.NavigateTo("/");
+            var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
+            jwtToken = tokenResponse!.Token;
+
+            if (!string.IsNullOrEmpty(jwtToken))
+            {
+                if (HttpContextAccessor.HttpContext != null)
+                {
+                    var cookieOptions = new CookieOptions
+                        {
+                            HttpOnly = true,
+                            Secure = true,
+                            Expires = DateTimeOffset.UtcNow.AddMinutes(30)
+                        };
+                    HttpContextAccessor.HttpContext.Response.Cookies.Append("Identity-token", jwtToken, cookieOptions);
+                }
+                await InvokeAsync(() =>
+                    AuthenticationStateProvider.MarkUserAsAuthenticated(jwtToken));
+
+                Navigation.NavigateTo("/");
+            }
         }
         else
         {
-            errorMessage = "did not work";
+            errorMessage = "Sign-in failed";
         }
     }
 

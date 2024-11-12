@@ -1,11 +1,10 @@
-﻿
-@using Microsoft.AspNetCore.Components.Authorization
-@inject AuthenticationStateProvider AuthenticationStateProvider
+﻿@using Microsoft.AspNetCore.Components.Authorization
 @inject NavigationManager Navigation
+@rendermode InteractiveServer
 
 <header class="py-4">
     <div class="header-title">
-        <NavLink href="/" ><img src="/Images/rikalogo.svg" alt=""></NavLink>
+        <NavLink href="/"><img src="/Images/rikalogo.svg" alt=""></NavLink>
         <button class="menu-button py-3"><i class="fa-solid fa-bars"></i></button>
     </div>
 
@@ -18,8 +17,6 @@
         </ul>
     </nav>
     <div class="header-actions">
-
-
         <form class="search-form" action="">
             <input type="search" placeholder="Search..." class="search-input">
             <div class="search-button">
@@ -30,6 +27,7 @@
         <AuthorizeView>
             <Authorized>
                 <NavLink href="/profile">Profile</NavLink>
+@*                 <button @onclick="Logout">Sign Out</button> *@
             </Authorized>
             <NotAuthorized>
                 <div class="auth-links">
@@ -38,7 +36,6 @@
                 </div>
             </NotAuthorized>
         </AuthorizeView>
-
     </div>
     <nav class="mobile-nav py-3">
         <ul>
@@ -53,6 +50,3 @@
 @code {
 
 }
-
-
-

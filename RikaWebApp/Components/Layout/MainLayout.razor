@@ -1,10 +1,13 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
 
 
 <div class="wrapper">
-    <NavMenu />
+    <RikaWebApp.Components.Partials.NavMenu />
     <main>
-        @Body
+        <CascadingAuthenticationState>
+            @Body
+        </CascadingAuthenticationState>
     </main>
 </div>
 
