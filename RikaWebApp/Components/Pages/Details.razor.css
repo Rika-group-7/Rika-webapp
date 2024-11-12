@@ -162,13 +162,16 @@
   transform: translateX(20px);
 }
 #settings-page .container .form-settings {
-  width: 50%;
-  gap: 5%;
-  margin-left: 10%;
+  width: 50% !important;
+  gap: 5% !important;
+  margin-left: 15% !important;
 }
 #settings-page .container .form-settings .Upload-image-settings {
-  display: flex;
+  display: none;
   padding-top: 20px;
+}
+#settings-page .container .form-settings .Upload-image-settings img {
+  display: none;
 }
 #settings-page .container .form-settings .Upload-image-settings .icon {
   position: absolute;
@@ -223,32 +226,34 @@
   box-shadow: 0 0 5px rgba(153, 153, 153, 0.5);
 }
 #settings-page .container .form-settings .form-content-settings .form-button-profile {
-  display: flex;
   padding-top: 5%;
-  gap: 1%;
+  margin-left: 2%;
 }
 #settings-page .container .form-settings .form-content-settings .form-button-profile .form-btn {
-  border-radius: 5px 5px;
-  border: 2px solid rgb(255, 255, 255);
-  border-radius: 15px;
-  box-shadow: 0 px 8px rgba(0, 0, 0, 0.1);
-  background-color: #b3b3b3;
-  color: rgb(0, 0, 0);
-  font-weight: bold;
-  padding: 8px;
+  width: 100% !important;
+  padding: 0.75rem !important;
+  font-size: 0.9rem !important;
+  font-weight: bold !important;
+  background-color: black !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0.25rem !important;
+  cursor: pointer !important;
+  transition: background-color 0.5s !important;
+  margin-bottom: 10%;
 }
 #settings-page .container .form-settings .form-content-settings .form-button-profile .sign-out-btn {
+  width: 100% !important;
+  padding: 0.75rem !important;
+  font-size: 0.9rem !important;
+  font-weight: bold !important;
+  background-color: red !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0.25rem !important;
+  cursor: pointer !important;
+  transition: background-color 0.5s !important;
   text-decoration: none;
-  border-radius: 5px 5px;
-  border: 2px solid white;
-  border-radius: 15px;
-  box-shadow: 0 px 8px rgba(0, 0, 0, 0.1);
-  background-color: #ff0000;
-  color: rgb(255, 255, 255);
-  font-weight: bold;
-  padding: 8px;
-  width: 18%;
-  text-align: center;
 }
 #settings-page .container .form-settings .form-content-settings #form-gender .gender-group {
   display: flex;

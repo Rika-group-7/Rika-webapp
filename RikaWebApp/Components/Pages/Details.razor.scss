@@ -192,14 +192,19 @@
 
 
 
-        .form-settings {
-            width: 50%;
-            gap: 5%;
-            margin-left: 10%;
+        .form-settings{
+            
+            width: 50% !important;
+            gap: 5% !important;
+            margin-left: 15% !important;
 
             .Upload-image-settings {
-                display: flex;
+                display: none;
                 padding-top: 20px;
+
+                img {
+                    display: none;
+                }
 
 
 
@@ -270,34 +275,42 @@
                 }
 
                 .form-button-profile {
-                    display: flex;
-                    padding-top: 5%;
-                    gap: 1%;
+                 padding-top:5%;
+                 margin-left: 2%;
+                  
 
                     .form-btn {
-                        border-radius: 5px 5px;
-                        border: 2px solid rgb(255, 255, 255);
-                        border-radius: 15px;
-                        box-shadow: 0 px 8px rgba(0, 0, 0, 0.1);
-                        background-color: #b3b3b3;
-                        color: rgb(0, 0, 0);
-                        font-weight: bold;
-                        padding: 8px;
+                        width: 100% !important;
+                        padding: 0.75rem !important;
+                        font-size: 0.9rem !important;
+                        font-weight: bold !important;
+                        background-color: black !important;
+                        color: white !important;
+                        border: none !important;
+                        border-radius: 0.25rem !important;
+                        cursor: pointer !important;
+                        transition: background-color 0.5s !important;
+                        margin-bottom: 10%;
                     }
 
+               
+
+
                     .sign-out-btn {
-                        text-decoration: none;
-                        border-radius: 5px 5px;
-                        border: 2px solid white;
-                        border-radius: 15px;
-                        box-shadow: 0 px 8px rgba(0, 0, 0, 0.1);
-                        background-color: #ff0000;
-                        color: rgb(255, 255, 255);
-                        font-weight: bold;
-                        padding: 8px;
-                        width: 18%;
-                        text-align: center;
+                        width: 100% !important;
+                        padding: 0.75rem !important;
+                        font-size: 0.9rem !important;
+                        font-weight: bold !important;
+                        background-color: red !important;
+                        color: white !important;
+                        border: none !important;
+                        border-radius: 0.25rem !important;
+                        cursor: pointer !important;
+                        transition: background-color 0.5s !important;
+                        text-decoration:none;
                     }
+
+
                 }
 
 

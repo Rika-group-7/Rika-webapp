@@ -1,6 +1,8 @@
 ﻿@page "/details"
 @using System.ComponentModel.DataAnnotations
+@using System.Text.Json
 @inject HttpClient Http
+@inject IJSRuntime JS
 
 
 
@@ -8,7 +10,16 @@
 
 
     <section id="settings-page">
-        <div class="container">
+   @*  @if(user == null)
+    {
+        <p class="error-message">@errorMessage</p>
+    }
+    else
+    { *@
+        
+    
+
+    <div class="container">
 
             <aside class="sidebar-settings">
 
@@ -71,13 +82,11 @@
 
 
 
-            <EditForm Model="@input" method="post"  novalidate class="form-settings">
+        <EditForm style="margin-left:3%;" class="form-settings" Model="@input" method="post" novalidate>
                 <h3>Personal Details</h3>
                 <div class="Upload-image-settings">
                     <img src="avatar.svg" alt="" />
-                    <a class="icon">
-                        <i class="fa-solid fa-user-pen"></i>
-                    </a>
+
 
                 </div>
                 <div class="form-content-settings">
@@ -124,17 +133,15 @@
 
 
         </div>
-
+  @*   } *@
     </section>
 
 
 @code {
-
     private UserInputModel input = new UserInputModel();
     private string errorMessage = "";
     private bool isSaved = false;
-
-
+    private UserDto? user;
 
     private class UserInputModel
     {
@@ -142,52 +149,55 @@
         public string? Gender { get; set; }
         public int? Age { get; set; }
         public string? Email { get; set; }
-
     }
-    private async Task HandleValidSubmit()
+    private class UserDto
     {
-        isSaved = false;
-        errorMessage = " ";
+        public string Id { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public bool IsAdmin { get; set; }
+        public string? ProfilePictureUrl { get; set; }
+        public string? ProfileDescription { get; set; }
+        public string? Gender { get; set; }
+        public int? Age { get; set; }
+    }
 
+    protected override async Task OnInitializedAsync()
+    {
         try
         {
-            var response = await Http.PutAsJsonAsync("https://api.com/api/user", input);
+            // Hämta JWT-token från `localStorage`
+            var token = await JS.InvokeAsync<string>("localStorage.getItem", "jwtToken");
 
-            if (response.IsSuccessStatusCode)
+            if (string.IsNullOrEmpty(token))
             {
-                isSaved = true;
+                errorMessage = "Authentication token is missing. Please log in.";
+                return;
             }
-            else
+
+            // Sätt `Authorization`-header med JWT-token
+            Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            // Hämta användardata från API:et
+            user = await Http.GetFromJsonAsync<UserDto>($"https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/User/getself");
+
+            if (user == null)
             {
-                var errorResponse = await response.Content.ReadAsStringAsync();
-                errorMessage = $"Uppdateringen misslyckades: {errorResponse}";
+                errorMessage = "User data could not be loaded.";
             }
         }
-        catch
+        catch (Exception ex)
         {
-            
+            errorMessage = $"Error loading user data: {ex.Message}";
         }
     }
 
-
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     try
-    //     {
-    //         input = await Http.GetFromJsonAsync<>("https://api.com/api/user");
-
-    //     }
-    //     catch 
-    //     {
-    //         errorMessage = $"Ett Fel har inträffat när användardata hämtades";
-    //     }
-    //     skapa logik för att hämta in användardatan med api
-    // }
-
+    
 
     public class ChooseGender
     {
-        public enum UserGender {male,female}
+        public enum UserGender { male, female }
     }
 
     public class Male
@@ -198,9 +208,6 @@
     {
         public string? female { get; set; }
     }
-    public Male? male { get; set; }   
-    public Female? female { get; set; }   
-
-
-
+    public Male? male { get; set; }
+    public Female? female { get; set; }
 }
