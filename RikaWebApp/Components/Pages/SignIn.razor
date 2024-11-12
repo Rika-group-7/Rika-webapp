@@ -61,11 +61,19 @@
 @code {
     private SignInModel signInModel = new SignInModel();
     private string confirmPassword = string.Empty;
-    private string? successMessage;
-    private string? errorMessage;
+    public string? successMessage;
+    public string? errorMessage;
+    public HttpClient httpClient;
+    public NavigationManager @object;
 
-    private async Task SignInUserAsync()
-    {
+        public SignIn(HttpClient httpClient, NavigationManager @object)
+        {
+            this.httpClient = httpClient;
+            this.@object = @object;
+        }
+
+        public async Task SignInUserAsync()
+        {
 
         var response = await Http.PostAsJsonAsync("https://rika-authenticationprovider-drfta9bhdaf0g0dr.westeurope-01.azurewebsites.net/api/Auth/signin", signInModel);
         if (response.IsSuccessStatusCode)
@@ -80,7 +88,7 @@
     }
 
 
-    private void NavigateToSignUp()
+    public void NavigateToSignUp()
     {
         Navigation.NavigateTo("/signup"); 
     }
