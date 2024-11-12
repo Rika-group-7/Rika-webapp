@@ -1,6 +1,9 @@
-﻿<header class="py-4">
+﻿@inject NavigationManager Navigation
+@rendermode InteractiveServer
+
+<header class="py-4">
     <div class="header-title">
-        <NavLink href="/" ><img src="/Images/rikalogo.svg" alt=""></NavLink>
+        <a href="/" @onclick="NavigateToHome"><img src="/Images/rikalogo.svg" alt=""></a>
         <button class="menu-button py-3"><i class="fa-solid fa-bars"></i></button>
     </div>
 
@@ -23,8 +26,8 @@
             </div>
         </form>
         <div class="auth-links">
-            <NavLink href="/signin" class="sign-in">Sign In</NavLink>
-            <NavLink href="/signup" class="sign-up">Sign Up</NavLink>
+            <button @onclick="NavigateToSignIn" class="sign-in">Sign In</button>
+            <button @onclick="NavigateToSignUp" class="sign-up">Sign Up</button>
         </div>
     </div>
     <nav class="mobile-nav py-3">
@@ -40,6 +43,20 @@
 
 </header>
 
+@{
+    void NavigateToSignUp()
+    {
+        Navigation.NavigateTo("/signup", forceLoad: true);
+    }
+    void NavigateToSignIn()
+    {
+        Navigation.NavigateTo("/signin", forceLoad: true);
+    }
+    void NavigateToHome()
+    {
+        Navigation.NavigateTo("/", forceLoad: true);
+    }
+}
 
 
 

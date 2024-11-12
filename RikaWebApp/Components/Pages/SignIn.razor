@@ -64,6 +64,9 @@
     private string? successMessage;
     private string? errorMessage;
 
+
+
+
     private async Task SignInUserAsync()
     {
 
@@ -82,7 +85,7 @@
 
     private void NavigateToSignUp()
     {
-        Navigation.NavigateTo("/signup"); 
+        Navigation.NavigateTo("/signup", forceLoad: true); 
     }
 
 
