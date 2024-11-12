@@ -11,6 +11,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GraphQL.Client" Version="6.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\signin-images\" />
   </ItemGroup>
 
