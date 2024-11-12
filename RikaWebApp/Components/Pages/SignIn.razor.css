@@ -38,7 +38,7 @@
 }
 .container .form-box .signin-form .input-group .input-icon {
   position: absolute;
-  left: 10px;
+  right: 15px;
   color: #aaa;
   font-size: 1rem;
 }

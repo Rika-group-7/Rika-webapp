@@ -3,6 +3,7 @@
 @inject HttpClient Http
 @rendermode InteractiveServer
 @inject NavigationManager Navigation
+@inject NavigationManager uriHelper
 
 
 <div class="container">
@@ -64,6 +65,9 @@
     private string? successMessage;
     private string? errorMessage;
 
+
+
+
     private async Task SignInUserAsync()
     {
 
@@ -82,7 +86,7 @@
 
     private void NavigateToSignUp()
     {
-        Navigation.NavigateTo("/signup"); 
+        Navigation.NavigateTo("/signup", forceLoad: true); 
     }
 
 
