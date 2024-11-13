@@ -80,29 +80,35 @@
         if (response.IsSuccessStatusCode)
         {
             var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
-            jwtToken = tokenResponse!.Token;
+            jwtToken = tokenResponse.Token;
+            Console.WriteLine(jwtToken);
 
             if (!string.IsNullOrEmpty(jwtToken))
             {
-                if (HttpContextAccessor.HttpContext != null)
+                var claims = AuthenticationStateProvider.ParseClaimsFromJwt(jwtToken); 
+
+                if (claims != null) 
                 {
+                    AuthenticationStateProvider.MarkUserAsAuthenticated(jwtToken);
                     var cookieOptions = new CookieOptions
                         {
                             HttpOnly = true,
                             Secure = true,
-                            Expires = DateTimeOffset.UtcNow.AddMinutes(30)
+                            Expires = DateTimeOffset.UtcNow.AddDays(20)
                         };
-                    HttpContextAccessor.HttpContext.Response.Cookies.Append("Identity-token", jwtToken, cookieOptions);
-                }
-                await InvokeAsync(() =>
-                    AuthenticationStateProvider.MarkUserAsAuthenticated(jwtToken));
 
-                Navigation.NavigateTo("/");
+                    HttpContextAccessor.HttpContext?.Response.Cookies.Append("Identity-token", jwtToken, cookieOptions);
+                    Navigation.NavigateTo("/");
+                }
+                else
+                {
+                    errorMessage = "Error: Access denied. Admin privileges required.";
+                }
             }
         }
         else
         {
-            errorMessage = "Sign-in failed";
+            errorMessage = "Error: Login failed. User does not exist.";
         }
     }
 

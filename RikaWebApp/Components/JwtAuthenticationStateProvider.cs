@@ -48,6 +48,22 @@ public class JwtAuthenticationStateProvider : AuthenticationStateProvider
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(anonymous)));
     }
 
+    //private IEnumerable<Claim> ParseClaimsFromJwt(string jwt)
+    //{
+    //    var claims = new List<Claim>();
+    //    var payload = jwt.Split('.')[1];
+    //    var jsonBytes = Convert.FromBase64String(payload);
+    //    var keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonBytes);
+
+    //    foreach (var kvp in keyValuePairs)
+    //    {
+    //        claims.Add(new Claim(kvp.Key, kvp.Value.ToString()));
+    //    }
+
+    //    return claims;
+    //}
+
+
     public IEnumerable<Claim> ParseClaimsFromJwt(string jwt)
     {
         var claims = new List<Claim>();

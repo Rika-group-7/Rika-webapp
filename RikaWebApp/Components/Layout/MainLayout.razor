@@ -1,18 +1,20 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @inherits LayoutComponentBase
+@inject NavigationManager Navigation
 
-
-<div class="wrapper">
-    <RikaWebApp.Components.Partials.NavMenu />
-    <main>
-        <CascadingAuthenticationState>
+<CascadingAuthenticationState>
+    <div class="wrapper">
+        <RikaWebApp.Components.Partials.NavMenu />
+        <main>
             @Body
-        </CascadingAuthenticationState>
-    </main>
-</div>
+        </main>
+    </div>
+</CascadingAuthenticationState>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+
